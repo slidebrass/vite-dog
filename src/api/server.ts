@@ -36,7 +36,7 @@ export const server_calls = {
     return await response.json()
   },
 
-  update: async (data:any = {}) => {
+  update: async (id: string, data:any = {}) => {
     const response = await fetch(`http://localhost:5173/api/dogs/${id}`,
     {
       method: 'PUT',

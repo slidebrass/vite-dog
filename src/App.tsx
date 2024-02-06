@@ -2,7 +2,7 @@ import { HashRouter, Route, Routes } from 'react-router-dom';
 import routes from './config/routes';
 import Navbar from './components/Navbar';
 import { Provider } from 'react-redux';
-import store from './redux/store';
+import { store, dog_store } from './redux/store';
 import { Auth0Provider } from '@auth0/auth0-react';
 import { auth0Config } from './config/auth0.config';
 

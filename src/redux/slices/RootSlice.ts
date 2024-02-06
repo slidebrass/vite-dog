@@ -8,9 +8,9 @@ const rootSlice = createSlice({
     },
     reducers: {
         chooseName: (state, action) => { state.name = action.payload},
-        chooseBreed_Group: (state, action) => {state.breed_group = action.payload}
+        chooseBreed_group: (state, action) => {state.breed_group = action.payload}
     }
 }) 
 
 export const reducer = rootSlice.reducer;
-export const { chooseName, chooseBreed_Group } = rootSlice.actions
+export const { chooseName, chooseBreed_group } = rootSlice.actions

@@ -6,4 +6,9 @@ const store = configureStore ({
   devTools: true,
 });
 
+export const dog_store = configureStore ({
+  reducer,
+  devTools: true,
+});
+
 export default store
