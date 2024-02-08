@@ -4,8 +4,8 @@ import { useForm } from "react-hook-form";
 import { dog_server_calls } from "../api/dog_server";
 
 interface DogApiFormProps {
-    breed_name?: string;
-    image_count?: number;
+    breed_name: string;
+    image_count: number;
 }
 
 const DogApiForm = ( props:DogApiFormProps ) => {
@@ -17,7 +17,7 @@ const DogApiForm = ( props:DogApiFormProps ) => {
         console.log(props.breed_name)
         console.log(data)
         if (props.breed_name && props.breed_name.length > 0) {
-            dog_server_calls.get(props.breed_name, data)
+            dog_server_calls.get(props.breed_name, props.image_count)
             console.log(`Retrieved: ${ data.chooseBreed_Name } ${ props.breed_name }`)
             setTimeout(() => {window.location.reload()}, 500)
             event.target.reset()

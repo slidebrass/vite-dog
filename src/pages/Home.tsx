@@ -8,6 +8,12 @@ function Home() {
       <div className="flex place-items-center h-screen">
         <h3 className="p-5 bg-white bg-opacity-50 text-black rounded">Learn about dog breeds!</h3>
       </div>
+      <div>
+        {/* link to search/results page */}
+      </div>
+      <div>
+        {/* link to favorites page */}
+      </div>
     </div>
   )
 }
