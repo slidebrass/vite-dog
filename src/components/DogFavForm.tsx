@@ -5,8 +5,10 @@ import { server_calls } from "../api/server";
 import { useDispatch, useStore } from "react-redux";
 import { chooseName, chooseBreed_group } from "../redux/slices/RootSlice";
 
+// Form needs to be filled out by hook
+
 interface DogFavFormProps {
-    id?: string[];
+    breed_id?: number[];
 }
 
 const DogFavForm = ( props:DogFavFormProps ) => {
@@ -15,19 +17,19 @@ const DogFavForm = ( props:DogFavFormProps ) => {
     const store = useStore();
 
     const onSubmit = (data: any, event: any) => {
-        console.log(`ID: ${typeof props.id}`);
-        console.log(props.id)
+        console.log(`ID: ${typeof props.breed_id}`);
+        console.log(props.breed_id)
         console.log(data)
-        if (props.id && props.id.length > 0) {
-            server_calls.update(props.id[0], data)
-            console.log(`Updated: ${ data.name } ${ props.id }`)
+        if (props.breed_id && props.breed_id.length > 0) {
+            server_calls.update_dog(props.breed_id[0], data)
+            console.log(`Updated: ${ data.name } ${ props.breed_id }`)
             setTimeout(() => {window.location.reload()}, 500)
             event.target.reset()
         } else {
             dispatch(chooseName(data.name))
             dispatch(chooseBreed_group(data.breed_group))
 
-            server_calls.create(store.getState())
+            server_calls.create_dog(store.getState())
             setTimeout(() => {window.location.reload()}, 500);
             event.target.reset()
         }

@@ -5,7 +5,7 @@ export const useGetData = () => {
     const [ dogFavData, setData ] = useState<[]>([])
 
     async function handleDataFetch() {
-        const result = await server_calls.get();
+        const result = await server_calls.get_dogs();
         setData(result)
     }
 

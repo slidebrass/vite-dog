@@ -3,6 +3,10 @@ import Input from "./Input";
 import { useForm } from "react-hook-form";
 import { dog_server_calls } from "../api/dog_server";
 
+// really want to select breed_group from drop_down select, 
+// then breed_name from a drop_down select that populates based on breed_group,
+// then select an image count from a drop_down select or input field that can validate datatype
+
 interface DogApiFormProps {
     breed_name: string;
     image_count: number;

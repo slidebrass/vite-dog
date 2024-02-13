@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { dog_server_calls } from "../api/dog_server";
 import { TheCatAPI } from "@thatapicompany/thecatapi";
-import { token } from "../api/dog_server.ts";
+import { api_key } from "../api/dog_server.ts";
 import { chooseBreed_Name, chooseImage_Count } from "../redux/slices/DogRootSlice";
 
-export const useTheCatApi = new TheCatAPI(`${token}`, {
+export const useTheCatApi = new TheCatAPI(`${api_key}`, {
     host: "https://api.thedogapi.com/v1",
 });
 
