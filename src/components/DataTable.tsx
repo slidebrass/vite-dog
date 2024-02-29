@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Modal from './Modal';
 import { server_calls } from '../api/server';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import { useGetData } from '../custom-hooks/FetchData';
+import { useGetData } from '../custom-hooks/FetchFavData';
 
 const columns: GridColDef[] = [
     { field: 'name', headerName: 'Breed Name', width: 90 },

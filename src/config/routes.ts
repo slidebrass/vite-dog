@@ -1,5 +1,5 @@
 import Home from '../pages/Home';
-import Results from '../pages/Results';
+import Results from '../pages/Search';
 import Favorites from '../pages/Favorites';
 
 interface RouteType {
