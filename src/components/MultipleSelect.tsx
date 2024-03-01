@@ -1,5 +1,6 @@
 import React from 'react';
 import { FormControl, OutlinedInput, InputLabel, MenuItem, Select } from '@mui/material';
+import { useGetId } from '../custom-hooks/FetchDogId';
 
 
 const breeds = {
@@ -22,13 +23,14 @@ interface SelectProps {
   defaultValue: string;
   labelId: string;
   id: string;
-  // value: any;
-  input: Element;
+  value: string;
+  // input: Element;
 }
 
 const MultipleSelect = ( props: SelectProps ) => {
   // const theme = useTheme();
-  const [breedName, setBreedName] = React.useState([]);
+  const [breedName, setBreedName] = React.useState<string[]>([]);
+  const { dogIdData, setData } = useGetId();
 
   const handleBreedNameChange = (event) => {
     const {
@@ -38,6 +40,8 @@ const MultipleSelect = ( props: SelectProps ) => {
       typeof value === 'string' ? value.split(',') : value,
     );
   };
+
+
 
   return (
     <div>
@@ -51,7 +55,7 @@ const MultipleSelect = ( props: SelectProps ) => {
           onChange={ handleBreedNameChange }
           id={ props.id }
           value={ breedName }
-          input={ props.input }
+          // input={ props.input }
           // labelId="breed_name-multiple-name-label"
           // id="breed_name=multiple-name"
           // multiple value={breedName}

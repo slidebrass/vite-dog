@@ -4,8 +4,8 @@ import { server_calls } from "../api/server";
 export const useGetId = () => {
     const [ dogIdData, setData ] = useState<[]>([])
 
-    async function handleDataFetch() {
-        const result = await server_calls.get_dict(/**dog_dict_id from MultipleSelect */);
+    const handleDataFetch = async () => {
+        const result = await server_calls.get_dict(dict_breed_name /*from MultipleSelect*/);
         setData(result)
     }
 
