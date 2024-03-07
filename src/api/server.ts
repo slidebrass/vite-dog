@@ -2,8 +2,9 @@ const token = 'Bearer 9bcd1983-9357-48cc-8a15-b7864cddfd4c'
 const endpoint = 'http://localhost:5173'
 
 export const server_calls = {
-  get_dogs: async () => {
-    const response = await fetch(`${endpoint}/api/dogs`,
+  // breed_info routes
+  get_breeds_info: async () => {
+    const response = await fetch(`${endpoint}/api/info`,
     {
       method: 'GET',
       headers: {
@@ -19,8 +20,8 @@ export const server_calls = {
     return await response.json()
   },
 
-  get_dog: async (breed_id: number) => {
-    const response = await fetch(`${endpoint}/api/dogs/${breed_id}`,
+  get_breed_info: async (breed_id: number) => {
+    const response = await fetch(`${endpoint}/api/info/${breed_id}`,
     {
       method: 'GET',
       headers: {
@@ -36,8 +37,8 @@ export const server_calls = {
     return await response.json()
   },
 
-  create_dog: async (data:any = {}) => {
-    const response = await fetch(`${endpoint}/api/dogs`,
+  create_breed_info: async (data:any = {}) => {
+    const response = await fetch(`${endpoint}/api/info`,
     {
       method: 'POST',
       headers: {
@@ -54,8 +55,8 @@ export const server_calls = {
     return await response.json()
   },
 
-  update_dog: async (breed_id: number, data:any = {}) => {
-    const response = await fetch(`${endpoint}/api/dogs/${breed_id}`,
+  update_breed_info: async (breed_id: number, data:any = {}) => {
+    const response = await fetch(`${endpoint}/api/info/${breed_id}`,
     {
       method: 'PUT',
       headers: {
@@ -72,8 +73,8 @@ export const server_calls = {
     return await response.json()
   },
 
-  delete_dog: async (breed_id:number) => {
-    const response = await fetch(`${endpoint}/api/dogs/${breed_id}`,
+  delete_breed_info: async (breed_id:number) => {
+    const response = await fetch(`${endpoint}/api/info/${breed_id}`,
     {
       method: 'DELETE',
       headers: {
@@ -89,6 +90,7 @@ export const server_calls = {
     return;
   },
 
+  // users routes
   get_users: async () => {
     const response = await fetch(`${endpoint}/api/users`,
     {
@@ -176,6 +178,7 @@ export const server_calls = {
     return;
   },
 
+  // notes routes
   get_notes: async () => {
     const response = await fetch(`${endpoint}/api/notes`,
     {
@@ -193,7 +196,7 @@ export const server_calls = {
     return await response.json()
   },
 
-  get_note: async (breedNotes_Id=string) => {
+  get_note: async (breedNotes_Id: string) => {
     const response = await fetch(`${endpoint}/api/notes${breedNotes_Id}`,
     {
       method: 'GET',
@@ -263,7 +266,8 @@ export const server_calls = {
     return;
   },
 
-  get_dict: async (dict_breed_name:string) => {
+  // dog_dict routes
+  get_dogdict: async (dict_breed_name:string) => {
     const response = await fetch(`${endpoint}/api/dogdict/${dict_breed_name}`,
     {
       method: 'GET',
@@ -279,4 +283,20 @@ export const server_calls = {
 
     return await response.json();
   },
+
+  get_dogdicts: async () => {
+    const response = await fetch(`${endpoint}/api/dogdict`,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    })
+
+    if (!response.ok) {
+      throw new Error('Failed to get data from the server.')
+    }
+
+    return await response.json();
+  }
 };

@@ -1,6 +1,7 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import { FormControl, OutlinedInput, InputLabel, MenuItem, Select } from '@mui/material';
 import { useGetId } from '../custom-hooks/FetchDogId';
+import { server_calls } from '../api/server';
 
 
 const breeds = {
@@ -30,8 +31,12 @@ interface SelectProps {
 const MultipleSelect = ( props: SelectProps ) => {
   // const theme = useTheme();
   const [breedName, setBreedName] = React.useState<string[]>([]);
-  const { dogIdData, setData } = useGetId();
+  // const { dogIdData, setData } = useGetId();
+  // onClick, fetch dogIdData from dogdict "dog_breed_id"
+  // so that information is available for the dogApi call when the user clicks "submit"
 
+
+  // TODO: is this an event or value? If so, what kind?
   const handleBreedNameChange = (event) => {
     const {
       target: { value },
@@ -39,6 +44,7 @@ const MultipleSelect = ( props: SelectProps ) => {
     setBreedName(
       typeof value === 'string' ? value.split(',') : value,
     );
+    useGetId({event.target.value})
   };
 
 
@@ -63,8 +69,15 @@ const MultipleSelect = ( props: SelectProps ) => {
           // input={<OutlinedInput label="Breed Name" />}
           // MenuProps={MenuProps}
         >
-          
-          {Object.entries(breeds).map(([dict_breed_name, dict_breed_id]) => (
+          { server_calls.get_dogdicts().map(([dict_breed_name: string, dict_breed_id: number]) => (
+            <MenuItem
+              key={dict_breed_id}
+              value={dict_breed_name}
+            >
+              {dict_breed_name}
+            </MenuItem>
+          )) }
+          {/* {Object.entries(breeds).map(([dict_breed_name, dict_breed_id]) => (
             <MenuItem
               key={dict_breed_id}
               value={dict_breed_name}
@@ -72,7 +85,7 @@ const MultipleSelect = ( props: SelectProps ) => {
             >
               {dict_breed_name}
             </MenuItem>
-          ))}
+          ))} */}
         </Select>
       </FormControl>
     </div>

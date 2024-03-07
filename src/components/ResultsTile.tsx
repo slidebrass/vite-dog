@@ -3,14 +3,20 @@
 import { Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
 import ConButton from './ConButton';
 import Input from './Input';
+// import { useTheCatApi } from '../custom-hooks/FetchDogData';
+import { useState } from 'react';
 
 interface TileProps {
-  /** MediaCard Props? */
+  component: 'img'
+  src: 'string'
 }
 
-const ResultsTile = ( props: TileProps ) => {
-  const /** need some way to pass in the data retrieved from FetchDogData */
-  const /** need a way to submit information to add favorites */
+const ResultsTile = ( props: TileProps, data: any ) => {
+  /** need some way to pass in the data retrieved from FetchDogData */
+  /** need a way to submit information to add favorites */
+  const [notes, setNotes] = useState('')
+
+  data.map((data) => {})
 
   return (
     <div>
@@ -22,12 +28,17 @@ const ResultsTile = ( props: TileProps ) => {
         />
         <CardContent>
           <Typography gutterBottom variant='h5' component='div'>
-            {data.breed_name}
+            `Breed Name: ${data.name}`
+            `Breed Group: ${data.breed_group}`
+            `Life Span: ${data.life_span}`
+            `Weight: ${data.weight.metric} Kg`
+            `Height: ${data.height.metric} m`
+            `Temperament: ${data.temperament}`
           </Typography>
         </CardContent>
         <div>
           <label htmlFor='notes'>Notes</label>
-          <Input {...register('notes')} name='notes' placeholder='Add notes about this breed here if you would like to add it to your favorites.' />
+          <Input {...notes('notes')} name='notes' placeholder='Add notes about this breed here if you would like to add it to your favorites.' />
         </div>
         <CardActions>
           <ConButton 

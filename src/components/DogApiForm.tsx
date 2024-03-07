@@ -1,14 +1,53 @@
+import React from "react";
 import Input from "./Input";
-
+import { InputLabel, MenuItem, FormControl, Select } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { dog_server_calls } from "../api/dog_server";
+import { server_calls } from "../api/server";
 
 // really want to select breed_group from drop_down select, 
 // then breed_name from a drop_down select that populates based on breed_group,
 // then select an image count from a drop_down select or input field that can validate datatype
 
+export const SingleSelect = () => {
+    const [num, setNum] = React.useState([]);
+  
+    const handleNumChange = (event) => {
+      setNum(event.target.value);
+    };
+  
+    return (
+      <div>
+        <FormControl variant="filled" sx={{ m: 1, minWidth: 120}}>
+          <InputLabel id="single-select-filled-label">Amount</InputLabel>
+          <Select
+            labelId="single-select-filled-label"
+            id="single-select-filled"
+            value={num}
+            onChange={handleNumChange}
+          >
+            <MenuItem value="">
+              <em>None</em>
+            </MenuItem>
+            <MenuItem value={5}>Five</MenuItem>
+            <MenuItem value={10}>Ten</MenuItem>
+            <MenuItem value={15}>Fifteen</MenuItem>
+            <MenuItem value={20}>Twenty</MenuItem>
+          </Select>
+        </FormControl>
+      </div>
+    )
+  }
+
+  
+
+
+
+
+
 interface DogApiFormProps {
     breed_name: string;
+    breed_id: number;
     image_count: number;
 }
 
@@ -21,8 +60,14 @@ const DogApiForm = ( props:DogApiFormProps ) => {
         console.log(props.breed_name)
         console.log(data)
         if (props.breed_name && props.breed_name.length > 0) {
-            dog_server_calls.get(props.breed_name, props.image_count)
-            console.log(`Retrieved: ${ data.chooseBreed_Name } ${ props.breed_name }`)
+            server_calls.get_dict(props.breed_name)
+            console.log(`Retrieved: ${ data.dict_breed_name} ${ data.dict_breed_id }`)
+            setTimeout(() => {window.location.reload()}, 500)
+            event.target.reset()
+
+            // I have no idea how to pass in the retrieved dict_breed_id here
+            dog_server_calls.get(data.dict_breed_id, props.image_count)
+            console.log(`Retrieved: ${ data.chooseBreed_Name } ${ props.breed_id }`)
             setTimeout(() => {window.location.reload()}, 500)
             event.target.reset()
         }

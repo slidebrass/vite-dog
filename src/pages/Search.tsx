@@ -7,14 +7,7 @@ const Search = () => {
   return (
     <>
       <div>
-        <Stack direction='row' spacing={2}>
-          < MultipleSelect 
-            autoWidth=true
-            defaultValue="Choose A Breed"
-            labelId="breed_name-multiple-name-label"
-            id="breed_name=multiple-name"
-          />
-        </Stack>
+        
       </div>
     </>
   )
