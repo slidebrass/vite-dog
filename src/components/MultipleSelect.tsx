@@ -3,20 +3,6 @@ import { FormControl, OutlinedInput, InputLabel, MenuItem, Select } from '@mui/m
 import { useGetId } from '../custom-hooks/FetchDogId';
 import { server_calls } from '../api/server';
 
-
-const breeds = {
-  "Affenpinscher": 1,
-  "Afghan Hound": 2,
-  "African Hunting Dog": 3,
-  "Airedale Terrier": 4,
-  "Akbash Dog": 5,
-  "Akita": 6,
-  "Alapaha Blue Blood Bulldog": 7,
-  "Alaskan Husky": 8,
-  "Alaskan Malamute": 9,
-  "American Bulldog": 10
-};
-
 interface SelectProps {
   autoWidth: boolean;
   children: React.ReactNode;
@@ -29,21 +15,23 @@ interface SelectProps {
 }
 
 const MultipleSelect = ( props: SelectProps ) => {
-  // const theme = useTheme();
   const [breedName, setBreedName] = React.useState<string[]>([]);
   // const { dogIdData, setData } = useGetId();
-  // onClick, fetch dogIdData from dogdict "dog_breed_id"
-  // so that information is available for the dogApi call when the user clicks "submit"
+  // easier way than useGetId seems to be using the key/value pair {dict_breed_id: dict_breed_name} 
+  // called for the multipleSelect dropdown menu.
 
 
   // TODO: is this an event or value? If so, what kind?
+  // handles adding breedName to list of selected breeds when a breedName is clicked
   const handleBreedNameChange = (event) => {
-    const {
+    const breedName {
       target: { value },
     } = event;
     setBreedName(
       typeof value === 'string' ? value.split(',') : value,
     );
+    // useGetId to take selected breedName and return 
+    // dict_breed_id (the id required to execute 3rd party API calls)
     useGetId({event.target.value})
   };
 
@@ -61,14 +49,9 @@ const MultipleSelect = ( props: SelectProps ) => {
           onChange={ handleBreedNameChange }
           id={ props.id }
           value={ breedName }
-          // input={ props.input }
-          // labelId="breed_name-multiple-name-label"
-          // id="breed_name=multiple-name"
-          // multiple value={breedName}
-          // onChange={handleBreedNameChange}
-          // input={<OutlinedInput label="Breed Name" />}
-          // MenuProps={MenuProps}
+
         >
+          {/* want to display all breed names listed in the dog_dict table */}
           { server_calls.get_dogdicts().map(([dict_breed_name: string, dict_breed_id: number]) => (
             <MenuItem
               key={dict_breed_id}
@@ -77,15 +60,6 @@ const MultipleSelect = ( props: SelectProps ) => {
               {dict_breed_name}
             </MenuItem>
           )) }
-          {/* {Object.entries(breeds).map(([dict_breed_name, dict_breed_id]) => (
-            <MenuItem
-              key={dict_breed_id}
-              value={dict_breed_name}
-            // style={breed, breedName, theme}
-            >
-              {dict_breed_name}
-            </MenuItem>
-          ))} */}
         </Select>
       </FormControl>
     </div>

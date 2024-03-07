@@ -280,7 +280,7 @@ export const server_calls = {
     if (!response.ok) {
       throw new Error('Failed to get data from the server')
     }
-
+    // TODO: return only 'dict_breed_id' or let 
     return await response.json();
   },
 

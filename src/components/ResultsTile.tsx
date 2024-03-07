@@ -6,6 +6,7 @@ import Input from './Input';
 // import { useTheCatApi } from '../custom-hooks/FetchDogData';
 import { useState } from 'react';
 
+// MediaCard from Material UI
 interface TileProps {
   component: 'img'
   src: 'string'
@@ -13,7 +14,7 @@ interface TileProps {
 
 const ResultsTile = ( props: TileProps, data: any ) => {
   /** need some way to pass in the data retrieved from FetchDogData */
-  /** need a way to submit information to add favorites */
+  
   const [notes, setNotes] = useState('')
 
   data.map((data) => {})
@@ -28,12 +29,12 @@ const ResultsTile = ( props: TileProps, data: any ) => {
         />
         <CardContent>
           <Typography gutterBottom variant='h5' component='div'>
-            `Breed Name: ${data.name}`
-            `Breed Group: ${data.breed_group}`
-            `Life Span: ${data.life_span}`
-            `Weight: ${data.weight.metric} Kg`
-            `Height: ${data.height.metric} m`
-            `Temperament: ${data.temperament}`
+            {`Breed Name: ${data.name}`}
+            {`Breed Group: ${data.breed_group}`}
+            {`Life Span: ${data.life_span}`}
+            {`Weight: ${data.weight.metric} Kg`}
+            {`Height: ${data.height.metric} m`}
+            {`Temperament: ${data.temperament}`}
           </Typography>
         </CardContent>
         <div>
@@ -41,11 +42,14 @@ const ResultsTile = ( props: TileProps, data: any ) => {
           <Input {...notes('notes')} name='notes' placeholder='Add notes about this breed here if you would like to add it to your favorites.' />
         </div>
         <CardActions>
+          {/* TODO: add visible/hidden functionality for Submit button */}
+          {/* If add_favorite button == true && 'notes' == true, Submit button is visible */}
           <ConButton 
             className='flex justify-start bg-slate-300 p-2 rounded hover:gl-slate-800 text-white'
           >
             Add Favorite
           </ConButton>
+          {/* need a way to submit information to add favorites */}
           <ConButton 
             className='flex justify-start bg-slate-300 p-2 rounded hover:gl-slate-800 text-white'
           >

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { server_calls } from "../api/server";
 
 export const useGetId = (breed_name: string) => {
@@ -11,8 +11,8 @@ export const useGetId = (breed_name: string) => {
     }
 
     const handleDataFetch = async () => {
-        const result = await server_calls.get_dict(breed_name /*from MultipleSelect*/);
-        setData(result)
+        const result = await server_calls.get_dogdict(breed_name /*from MultipleSelect*/);
+        setData(result.dict_breed_id)
     }
 
     useEffect( () => {

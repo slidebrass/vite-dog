@@ -1,6 +1,4 @@
-import React, { Children } from 'react';
 import MultipleSelect from './MultipleSelect';
-import SingleSelect from './SingleSelect';
 import ConButton from './ConButton';
 import { Stack } from '@mui/material';
 
@@ -8,11 +6,11 @@ import { Stack } from '@mui/material';
 interface SearchBarProps {
 
 }
-
+// SearchBar will include MultipleSelect and ConButton.
 const SearchBar = () => {
 
-  const onSubmit = (data: any, event: any) => {
-
+  const onSubmit = (data: any) => {
+    // use FetchDogData
   }
 
   return (
@@ -24,9 +22,8 @@ const SearchBar = () => {
           labelId="breed_name-multiple-name-label"
           id="breed_name=multiple-name"
         >
-          {Children}
+          {children}
         </MultipleSelect>
-        <SingleSelect>{children}</SingleSelect>
         <ConButton className='searchbar-button' onClick={onSubmit}>Submit</ConButton>
       </Stack>
     </div>

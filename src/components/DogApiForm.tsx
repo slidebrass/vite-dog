@@ -48,7 +48,6 @@ export const SingleSelect = () => {
 interface DogApiFormProps {
     breed_name: string;
     breed_id: number;
-    image_count: number;
 }
 
 const DogApiForm = ( props:DogApiFormProps ) => {
@@ -66,7 +65,7 @@ const DogApiForm = ( props:DogApiFormProps ) => {
             event.target.reset()
 
             // I have no idea how to pass in the retrieved dict_breed_id here
-            dog_server_calls.get(data.dict_breed_id, props.image_count)
+            dog_server_calls.get(data.dict_breed_id)
             console.log(`Retrieved: ${ data.chooseBreed_Name } ${ props.breed_id }`)
             setTimeout(() => {window.location.reload()}, 500)
             event.target.reset()
