@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Card, CardContent, CardMedia, FormControl, InputLabel, MenuItem, Stack, Typography } from '@mui/material';
+import { Card, CardContent, CardMedia, CardActions, FormControl, InputLabel, MenuItem, Stack, Typography } from '@mui/material';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 // import { useGetId } from '../custom-hooks/FetchDogId';
 import { server_calls } from '../api/server';
 import { dog_server_calls } from '../api/dog_server';
 import ConButton from './ConButton';
+import Input from './Input';
 
 interface ResultsTileProps {
   reference_image_id: string | undefined;
@@ -17,10 +18,28 @@ interface ResultsTileProps {
   temperament: string;
 }
 
+interface ResultsTileProps2 {
+  url: string;
+  breeds: [{
+    name: string;
+    breed_group: string;
+    life_span: string;
+    height: {metric: string};
+    weight: {metric: string};
+    temperament: string;
+    reference_image_id: string | undefined;
+  }]
+}
+
 interface BreedInfo {
   dict_breed_name: string;
   dict_breed_id: number;
   dict_id: number;
+}
+
+interface ImageIdData {
+  name: string;
+  reference_image_id: string;
 }
 
 
@@ -30,8 +49,10 @@ const MultipleSelect = () => {
   const [breedInfo, setBreedInfo] = useState<BreedInfo[]>([]);
   const [selectedBreeds, setSelectedBreeds] = useState<string[] | string>();
   const [matchingIds, setMatchingIds] = useState<number>()
-  const [breedDetails, setBreedDetails] = useState<ResultsTileProps|null>(null)
-  // const [dogIdData] = useGetId(selectedBreeds);
+  const [breedDetails, setBreedDetails] = useState<ResultsTileProps2|null>(null)
+  const [imageIdData, setImageIdData] = useState<string>('')
+
+  // on mount, retrieve all breed names for drop down
   const getBreedInfo = async () => {
     const data = await server_calls.get_dogdicts()
     console.log(data)
@@ -40,11 +61,6 @@ const MultipleSelect = () => {
   useEffect( () => {
     getBreedInfo()
   }, [] ) 
-  // const { dogIdData, setDogIdData } = useGetId();
-  // easier way than useGetId seems to be using the key/value pair {dict_breed_id: dict_breed_name} 
-  // called for the multipleSelect dropdown menu.
-
-
 
 
   // handles adding breedName to list of selected breeds when a breedName is clicked
@@ -74,6 +90,7 @@ const MultipleSelect = () => {
     // }
   };
   console.log(selectedBreeds)
+    
     useEffect(() => {
       for ( let breed of breedInfo ) {
         if (breed.dict_breed_name === selectedBreeds) {
@@ -82,6 +99,7 @@ const MultipleSelect = () => {
         }
       }
     }, [selectedBreeds])
+
     
     console.log(breedDetails)
     console.log(matchingIds)
@@ -94,6 +112,7 @@ const MultipleSelect = () => {
 
   const onSubmit = async (event: any) => {
     if (event)event.preventDefault()
+    console.log('submitting')
     const details = await dog_server_calls.get(matchingIds as number)
         setBreedDetails(details)
     
@@ -143,37 +162,37 @@ const MultipleSelect = () => {
         <CardMedia
           component='img'
           sx={{ height: 140 }}
-          image={breedDetails.reference_image_id}
+          image={breedDetails?.url}
         />
         <CardContent>
           <Typography gutterBottom variant='h5' component='div'>
-            {`Breed Name: ${breedDetails.name}`}
+            {`Breed Name: ${breedDetails?.breeds[0].name}`}
           </Typography>
         </CardContent>
         <CardContent>
           <Typography variant='body2' color='text.secondary'>
-            `Breed Group: ${breedDetails.breed_group}`
-            `Life Span: ${breedDetails.life_span}`
-            `Weight: ${breedDetails.weight.metric} Kg`
-            `Height: ${breedDetails.height.metric} m`
-            `Temperament: ${breedDetails.temperament}`
+            {`Breed Group: ${breedDetails?.breeds[0].breed_group}`}
+            {`Life Span: ${breedDetails?.breeds[0].life_span}`}
+            {`Weight: ${breedDetails?.breeds[0].weight.metric} Kg`}
+            {`Height: ${breedDetails?.breeds[0].height.metric} m`}
+            {`Temperament: ${breedDetails?.breeds[0].temperament}`}
           </Typography>
         </CardContent>
         <div>
           <label htmlFor='notes'>Notes</label>
-          <Input {...notes('note_input')} name='note_input' onChange={ handleNoteChange }
+          <Input /*{...register('note_input')}*/ name='note_input' /*onChange={ handleNoteChange }*/
             placeholder='Add notes about this breed here if you would like to add it to your favorites.' />
         </div>
         <CardActions>
           {/* TODO: add visible/hidden functionality for Submit button */}
           {/* If add_favorite button == true && 'notes' == true, Submit button is visible */}
-          <ConButton 
+          <ConButton type='favorite'
             className='flex justify-start bg-slate-300 p-2 rounded hover:gl-slate-800 text-white'
           >
             Add Favorite
           </ConButton>
           {/* need a way to submit information to add favorites */}
-          <ConButton 
+          <ConButton type='submit'
             className='flex justify-start bg-slate-300 p-2 rounded hover:gl-slate-800 text-white'
           >
             Submit
