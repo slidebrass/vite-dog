@@ -1,4 +1,3 @@
-import { chooseBreed_Id, chooseImage_Count } from "../redux/slices/DogRootSlice"
 
 export const api_key = 'live_sM7CeCWZm4IZGKFZ0MnVD7MF3ijTrjzaSQrIGtEZGbbpTGei1L8SYYPbgwA935t7'
 

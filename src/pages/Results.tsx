@@ -1,14 +1,14 @@
-import SearchBar from "../components/SearchBar";
 import ResultsTile from "../components/ResultsTile";
+import MultipleSelect from "../components/MultipleSelect";
 
 const Results = () => {
   return (
     <>
       <div>
-        <SearchBar/>
+        <MultipleSelect/>
       </div>
       <div>
-        <ResultsTile/>
+        <ResultsTile component={"img"} src={"string"}/>
       </div>
     </>
   )

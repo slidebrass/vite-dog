@@ -1,5 +1,5 @@
 const token = 'Bearer 9bcd1983-9357-48cc-8a15-b7864cddfd4c'
-const endpoint = 'http://localhost:5173'
+const endpoint = 'http://127.0.0.1:5000'
 
 export const server_calls = {
   // breed_info routes
@@ -267,7 +267,7 @@ export const server_calls = {
   },
 
   // dog_dict routes
-  get_dogdict: async (dict_breed_name:string) => {
+  get_dogdict: async (dict_breed_name:string[]) => {
     const response = await fetch(`${endpoint}/api/dogdict/${dict_breed_name}`,
     {
       method: 'GET',
@@ -280,7 +280,7 @@ export const server_calls = {
     if (!response.ok) {
       throw new Error('Failed to get data from the server')
     }
-    // TODO: return only 'dict_breed_id' or let 
+    
     return await response.json();
   },
 
@@ -288,9 +288,9 @@ export const server_calls = {
     const response = await fetch(`${endpoint}/api/dogdict`,
     {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      // headers: {
+      //   'Content-Type': 'application/json'
+      // },
     })
 
     if (!response.ok) {

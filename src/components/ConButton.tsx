@@ -4,6 +4,8 @@ interface ButtonProps {
   children: React.ReactNode;
   className?: string;
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  disabled?: boolean;
+  // type: string
 };
 
 const ConButton = ( props: ButtonProps ) => {

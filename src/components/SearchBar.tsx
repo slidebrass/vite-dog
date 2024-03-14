@@ -4,27 +4,21 @@ import { Stack } from '@mui/material';
 
 
 interface SearchBarProps {
-
+  id: string[];
+  onClose: () => void;
 }
 // SearchBar will include MultipleSelect and ConButton.
 const SearchBar = () => {
 
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: any, event: any) => {
     // use FetchDogData
   }
 
   return (
     <div>
-      <Stack direction='row' spacing={2}>
-        <MultipleSelect 
-          autoWidth={true}
-          defaultValue="Choose A Breed"
-          labelId="breed_name-multiple-name-label"
-          id="breed_name=multiple-name"
-        >
-          {children}
-        </MultipleSelect>
-        <ConButton className='searchbar-button' onClick={onSubmit}>Submit</ConButton>
+      <Stack direction='row' spacing={8}>
+        <MultipleSelect />
+        <ConButton className='searchbar-button' >Submit</ConButton>
       </Stack>
     </div>
   )
