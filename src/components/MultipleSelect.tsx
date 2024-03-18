@@ -27,7 +27,7 @@ interface ResultsTileProps2 {
     height: {metric: string};
     weight: {metric: string};
     temperament: string;
-    reference_image_id: string | undefined;
+    reference_image_id: string;
   }]
 }
 
@@ -44,7 +44,7 @@ interface ImageIdData {
 
 
 const MultipleSelect = () => {
-  // const { register, handleSubmit } = useForm({})
+  const { register, handleSubmit } = useForm({})
 
   const [breedInfo, setBreedInfo] = useState<BreedInfo[]>([]);
   const [selectedBreeds, setSelectedBreeds] = useState<string[] | string>();
@@ -129,77 +129,39 @@ const MultipleSelect = () => {
 
   return (
     <div>
-      <Stack direction='row' spacing={2}>
-        <FormControl onSubmit={onSubmit} variant="outlined" sx={{ m: 1, width: 300 }}>
-          <InputLabel id="breed_name-multiple-name-label">Breed Names</InputLabel>
-          <Select
-            autoWidth={true}
-            labelId="breed_name-multiple-name-label"
-            value = { selectedBreeds }
-            id="breed_name=multiple-name"
-            onChange={ handleBreedNameChange }
-            // multiple
-            
-          >
-            {/* want to display all breed names listed in the dog_dict table */}
-            { breedInfo.map(({dict_breed_name, dict_breed_id}) => (
-              <MenuItem
-                key={dict_breed_id}
-                value={dict_breed_name}
-              >
-                {dict_breed_name}
-              </MenuItem>
-            )) }
-          </Select>
-          <ConButton type='submit' className='submit-button flex justify-start m-3 
-            bg-[#C9CBA3] text-[#723D46] p-2 rounded hover:bg-[#472D30] hover:text-[#E26D5C]'
-          >
-            Submit
-          </ConButton>
-        </FormControl>
-      </Stack>
-      <Card sx={{ maxWidth: 345 }}>
-        <CardMedia
-          component='img'
-          sx={{ height: 140 }}
-          image={breedDetails?.url}
-        />
-        <CardContent>
-          <Typography gutterBottom variant='h5' component='div'>
-            {`Breed Name: ${breedDetails?.breeds[0].name}`}
-          </Typography>
-        </CardContent>
-        <CardContent>
-          <Typography variant='body2' color='text.secondary'>
-            {`Breed Group: ${breedDetails?.breeds[0].breed_group}`}
-            {`Life Span: ${breedDetails?.breeds[0].life_span}`}
-            {`Weight: ${breedDetails?.breeds[0].weight.metric} Kg`}
-            {`Height: ${breedDetails?.breeds[0].height.metric} m`}
-            {`Temperament: ${breedDetails?.breeds[0].temperament}`}
-          </Typography>
-        </CardContent>
-        <div>
-          <label htmlFor='notes'>Notes</label>
-          <Input /*{...register('note_input')}*/ name='note_input' /*onChange={ handleNoteChange }*/
-            placeholder='Add notes about this breed here if you would like to add it to your favorites.' />
-        </div>
-        <CardActions>
-          {/* TODO: add visible/hidden functionality for Submit button */}
-          {/* If add_favorite button == true && 'notes' == true, Submit button is visible */}
-          <ConButton type='favorite'
-            className='flex justify-start bg-slate-300 p-2 rounded hover:gl-slate-800 text-white'
-          >
-            Add Favorite
-          </ConButton>
-          {/* need a way to submit information to add favorites */}
-          <ConButton type='submit'
-            className='flex justify-start bg-slate-300 p-2 rounded hover:gl-slate-800 text-white'
-          >
-            Submit
-          </ConButton>
-        </CardActions>
-      </Card>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Stack direction='row' spacing={2}>
+          <FormControl variant="outlined" sx={{ m: 1, width: 300 }}>
+            <InputLabel id="breed_name-multiple-name-label">Breed Names</InputLabel>
+            <Select
+              autoWidth={true}
+              labelId="breed_name-multiple-name-label"
+              value = { selectedBreeds }
+              id="breed_name=multiple-name"
+              onChange={ handleBreedNameChange }
+              // multiple
+      
+            >
+              {/* want to display all breed names listed in the dog_dict table */}
+              { breedInfo.map(({dict_breed_name, dict_breed_id}) => (
+                <MenuItem
+                  key={dict_breed_id}
+                  value={dict_breed_name}
+                >
+                  {dict_breed_name}
+                </MenuItem>
+              )) }
+            </Select>
+            <ConButton type='submit' className='submit-button flex justify-start m-3
+              bg-[#C9CBA3] text-[#723D46] p-2 rounded hover:bg-[#472D30] hover:text-[#E26D5C]'
+            >
+              Submit
+            </ConButton>
+          </FormControl>
+        </Stack>
+      </form>
     </div>
+    
   )
 };
 

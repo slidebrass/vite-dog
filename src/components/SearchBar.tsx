@@ -18,7 +18,7 @@ const SearchBar = () => {
     <div>
       <Stack direction='row' spacing={8}>
         <MultipleSelect />
-        <ConButton className='searchbar-button' >Submit</ConButton>
+        {/* <ConButton className='searchbar-button' >Submit</ConButton> */}
       </Stack>
     </div>
   )
