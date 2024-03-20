@@ -13,6 +13,7 @@ const Input = forwardRef(( props: InputType, ref) => {
             margin='normal'
             inputRef={ref}
             fullWidth
+            multiline={true}
             type='text'
             {...props}
         >
