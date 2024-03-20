@@ -22,11 +22,11 @@ const FavoritesTile = ( props: FavoritesProps ) => {
     setFavNotes( value )
   }
 
-  const onSubmit = (data: string, event: any) => {
-    if () {
-      server_calls.update_note(breedNotesId, favNotes)
-    }
-  }
+  // const onSubmit = (data: string, event: any) => {
+  //   if (/* some qualifier */) {
+  //     server_calls.update_note(breedNotes_Id, favNotes)
+  //   }
+  // }
 
   return (
     <div>

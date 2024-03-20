@@ -53,7 +53,7 @@ const ResultsTile = (props: ResultsTileProps2) => {
     )
   }
 
-  const onSubmit = (data: string, event: any) => {
+  const onSubmit1 = (data: string, event: any) => {
     if (event)event.preventDefault()
     console.log('submitting')
     server_calls.create_note(data)
@@ -62,7 +62,7 @@ const ResultsTile = (props: ResultsTileProps2) => {
 
   return (
     <div className='bg-gray-500'>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit1)}>
         <Card className='items-center mx-auto pt-2 ' sx={{ maxWidth: 500 }}>
           <CardMedia className='bg-slate-200'
             component='img'
@@ -108,7 +108,7 @@ const ResultsTile = (props: ResultsTileProps2) => {
         </Card>
       </form>
 
-      {/* <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit1)}>
         <Card className='items-center mx-auto pt-2 ' sx={{ maxWidth: 500 }}>
             <CardMedia
               className='bg-slate-200'
@@ -150,7 +150,7 @@ const ResultsTile = (props: ResultsTileProps2) => {
               </ConButton>
             </CardActions>
           </Card>
-      </form> */}
+      </form>
     </div>
   )
 }

@@ -1,4 +1,4 @@
-const token = 'Bearer 9bcd1983-9357-48cc-8a15-b7864cddfd4c'
+const token = '9bcd1983-9357-48cc-8a15-b7864cddfd4c'
 const endpoint = 'http://127.0.0.1:5000'
 
 export const server_calls = {

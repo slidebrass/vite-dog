@@ -110,8 +110,9 @@ const MultipleSelect = () => {
             <CardActions>
               <ConButton 
                 type='submit'
-                id='search-submit' className='submit-button flex justify-start m-3
-                bg-[#C9CBA3] text-[#723D46] p-2 rounded hover:bg-[#472D30] hover:text-[#E26D5C]'
+                id='search-submit' 
+                className='submit-button flex justify-start m-3 bg-[#C9CBA3]
+                 text-[#723D46] p-2 rounded hover:bg-[#472D30] hover:text-[#E26D5C]'
               >
                 Submit
               </ConButton>
