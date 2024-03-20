@@ -29,8 +29,8 @@ const Results = () => {
       </div>
       <div>
         <ResultsTile 
-          url = {breedDetails.url}
-          breeds = [{breedDetails?.breeds[0].name}]
+          // url = {breedDetails.url}
+          // breeds[0]{name} = {breedDetails.breeds[0].name}
         />
       </div>
     </>

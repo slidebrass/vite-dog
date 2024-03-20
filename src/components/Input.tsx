@@ -1,9 +1,10 @@
-import { TextField } from '@mui/material';
+import { SelectChangeEvent, TextField } from '@mui/material';
 import { forwardRef } from 'react';
 
 interface InputType {
     name: string,
-    placeholder: string
+    placeholder: string,
+    onChange: (event: SelectChangeEvent<string>) => void
 }
 
 const Input = forwardRef(( props: InputType, ref) => {

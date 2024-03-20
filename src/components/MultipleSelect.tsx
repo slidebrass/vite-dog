@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { FormControl, InputLabel, MenuItem, Stack } from '@mui/material';
+import { CardActions, FormControl, InputLabel, MenuItem, Stack } from '@mui/material';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { server_calls } from '../api/server';
 import { dog_server_calls } from '../api/dog_server';
@@ -65,9 +65,9 @@ const MultipleSelect = () => {
       }
     }, [selectedBreed])
 
-    console.log('breed Details is ')
+    console.log('breed Details are...')
     console.log(breedDetails)
-    console.log('Matching Ids are..')
+    console.log('Matching Ids are...')
     console.log(matchingIds)
 
   const onSubmit = async (event: any) => {
@@ -75,16 +75,16 @@ const MultipleSelect = () => {
     console.log('submitting')
     const details = await dog_server_calls.get(matchingIds as number)
       setBreedDetails(details)
+      server_calls.create_breed_info(breedDetails)
   }
   console.log(breedDetails)
 
   return (
     <div className='bg-slate-200'>
-      <form onSubmit={(onSubmit)}>
-        <FormControl fullWidth variant="outlined" sx={{ m: 1 }}>
-          <Stack 
-            direction='row' 
-            // spacing={20}
+      <form className='flex justify-center' onSubmit={(onSubmit)}>
+        <FormControl variant="outlined" sx={{ m: 1, width: 500 }}>
+          <Stack  
+            spacing={2}
             justifyContent={'space-evenly'}>
             <InputLabel id="breed_name-multiple-name-label">Breed Names</InputLabel>
             <Select
@@ -107,14 +107,15 @@ const MultipleSelect = () => {
                 </MenuItem>
               )) }
             </Select>
-            <ConButton 
-              type='submit'
-              id='search-submit' className='submit-button flex justify-start m-3
-              bg-[#C9CBA3] text-[#723D46] p-2 rounded hover:bg-[#472D30] hover:text-[#E26D5C]'
-            >
-              Submit
-            </ConButton>
-
+            <CardActions>
+              <ConButton 
+                type='submit'
+                id='search-submit' className='submit-button flex justify-start m-3
+                bg-[#C9CBA3] text-[#723D46] p-2 rounded hover:bg-[#472D30] hover:text-[#E26D5C]'
+              >
+                Submit
+              </ConButton>
+            </CardActions>
           </Stack>
         </FormControl>
       </form>

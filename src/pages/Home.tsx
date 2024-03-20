@@ -1,5 +1,4 @@
 // import Background
-import MultipleSelect from "../components/MultipleSelect"
 
 
 function Home() {
@@ -9,10 +8,9 @@ function Home() {
       className= 'flex justify-center mx-auto bg-cover bg-fixed'
     >
       <div className="flex flex-row h-screen">
-        <h3 className="p-5 bg-white bg-opacity-50 text-black rounded">Learn about dog breeds!</h3>
-      </div>
-      <div>
-        <MultipleSelect/>
+        <h3 className="p-5 bg-white bg-opacity-50 text-black rounded">
+          Learn about dog breeds!
+        </h3>
       </div>
       <div>
         {/* link to search/results page */}

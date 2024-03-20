@@ -23,9 +23,9 @@ const routes: RouteType[] = [
         protected: true,
     },
     {
-        path: "/results",
+        path: "/search",
         component: Results,
-        name: "Results",
+        name: "Search",
         protected: true,
     }
 ];

@@ -1,8 +1,9 @@
+import FavoritesTile from "../components/FavoritesTile"
 
 function Favorites() {
   return (
     <div>
-      DataTable      
+      <FavoritesTile />      
     </div>
   )
 }

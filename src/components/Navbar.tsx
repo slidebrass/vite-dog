@@ -60,10 +60,10 @@ function Navbar() {
           </button>
           <button className='p-3 m-5 bg-[#C9CBA3] justify-center'>
             <div>
-              <Link to='/results' onClick={clicked} className='flex place-itmes-center mt-4 
+              <Link to='/search' onClick={clicked} className='flex place-itmes-center mt-4 
                   lg:inline-block lg:mt-0 text-[#723D46] hover:text-[#E26D5C] 
                   '>
-                      Results
+                      Search
               </Link>
             </div>
           </button>

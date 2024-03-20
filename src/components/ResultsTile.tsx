@@ -3,18 +3,12 @@
 import { Card, CardActions, CardContent, CardMedia, SelectChangeEvent, Typography } from '@mui/material';
 import ConButton from './ConButton';
 import Input from './Input';
-// import { useTheCatApi } from '../custom-hooks/FetchDogData';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { server_calls } from '../api/server';
 
 
-// MediaCard from Material UI
-// interface TileProps {
-//   component: 'img'
-//   src: 'string'
-// }
-interface props {
+interface NoteProps {
   name: string;
 }
 
@@ -28,7 +22,8 @@ interface ResultsTileProps {
     weight: {metric: string};
     temperament: string;
     reference_image_id: string;
-  }]
+  }];
+
 }
 
 interface ResultsTileProps2 {
@@ -46,12 +41,10 @@ interface ResultsTileProps2 {
 
 const ResultsTile = (props: ResultsTileProps2) => {
   
+
   const [notes, setNotes] = useState<string>('')
   const { register, handleSubmit } = useForm({})
 
-  // const disableButton = ({ text, isTrue }) => {
-
-  // }
 
   const handleNoteChange = (event: SelectChangeEvent<string>) => {
     let value = event.target.value
@@ -60,23 +53,19 @@ const ResultsTile = (props: ResultsTileProps2) => {
     )
   }
 
-  const onSubmit = async (event: any) => {
+  const onSubmit = (data: string, event: any) => {
     if (event)event.preventDefault()
     console.log('submitting')
-    const details = await server_calls.create_note(notes)
-      setNotes(details)
-      console.log(notes)
+    server_calls.create_note(data)
+      
   }
 
   return (
     <div className='bg-gray-500'>
-      <Card className='items-center mx-auto my-3 pt-2 ' sx={{ maxWidth: 500 }}>
-          <Typography gutterBottom variant='h5' component='div'>
-            {/* {props.name} */}
-          </Typography>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Card className='items-center mx-auto pt-2 ' sx={{ maxWidth: 500 }}>
           <CardMedia className='bg-slate-200'
             component='img'
-            sx={{ height: 250 }}
             image='https://cdn2.thedogapi.com/images/BFRYBufpm.jpg'
           />
           <CardContent className='bg-slate-200'>
@@ -104,33 +93,26 @@ const ResultsTile = (props: ResultsTileProps2) => {
           <div className='bg-slate-200'>
             <label className='px-2' htmlFor='notes'>Notes</label>
             <Input {...register('note_input')} name='note_input' onChange={ handleNoteChange }
-              placeholder='Add notes about this breed here if you would like to add it to your favorites.' />
+              placeholder='Add notes about this breed here if you would like to add it to your favorites.' 
+            />
           </div>
           <div className='content-between bg-slate-200'>
-            <CardActions>
-              {/* TODO: add visible/hidden functionality for Submit button */}
-              {/* If add_favorite button == true && 'notes' == true, Submit button is visible */}
-              <ConButton type='button' id='favorite'
+            <CardActions className='flex justify-end mr-5'>
+              <ConButton type='submit' id='favorite-submit'
                 className='flex justify-start bg-slate-300 p-2 rounded hover:gl-slate-800 text-white'
               >
                 Add Favorite
               </ConButton>
-              {/* need a way to submit information to add favorites */}
-              <ConButton type='submit' id='submit'
-                className='flex justify-start bg-slate-300 p-2 rounded hover:gl-slate-800 text-white'
-              >
-                Submit
-              </ConButton>
             </CardActions>
           </div>
-      </Card>
+        </Card>
+      </form>
 
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Card className='items-center mx-auto my-3 pt-2 ' sx={{ maxWidth: 500 }}>
+      {/* <form onSubmit={handleSubmit(onSubmit)}>
+        <Card className='items-center mx-auto pt-2 ' sx={{ maxWidth: 500 }}>
             <CardMedia
               className='bg-slate-200'
               component='img'
-              sx={{ height: 250 }}
               image={props.url}
             />
             <CardContent className='bg-slate-200'>
@@ -168,7 +150,7 @@ const ResultsTile = (props: ResultsTileProps2) => {
               </ConButton>
             </CardActions>
           </Card>
-      </form>
+      </form> */}
     </div>
   )
 }
