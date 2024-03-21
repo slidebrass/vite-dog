@@ -5,7 +5,8 @@ import { server_calls } from '../api/server';
 import { dog_server_calls } from '../api/dog_server';
 import ConButton from './ConButton';
 
-
+// props being fed to breedDetails state so it can get back correct data and 
+// data types from TheDogAPI
 interface ResultsTileProps2 {
   url: string;
   breeds: [{
@@ -19,27 +20,29 @@ interface ResultsTileProps2 {
   }]
 }
 
-interface BreedInfo {
+// props being fed to BreedList, only using dict_breed_name and dict_breed_id
+interface BreedList {
   dict_breed_name: string;
   dict_breed_id: number;
   dict_id: number;
 }
 
-const MultipleSelect = () => {
+const MultipleSelect = ( setBreedDetails<setStateAction> ) => {
 
-  const [breedInfo, setBreedInfo] = useState<BreedInfo[]>([]);
+  const [breedList, setBreedList] = useState<BreedList[]>([]);
   const [selectedBreed, setSelectedBreed] = useState<string>('');
-  const [matchingIds, setMatchingIds] = useState<number>()
-  const [breedDetails, setBreedDetails] = useState<ResultsTileProps2|null>(null)
+  const [matchingIds, setMatchingIds] = useState<number>();
+  // breedDetails needs to be available at the Parent level(Results.tsx) to this component
+  // const [breedDetails, setBreedDetails] = useState<ResultsTileProps2|null>(null)
 
-  // on mount, retrieve all breed names for drop down
-  const getBreedInfo = async () => {
+  // on mount, retrieve all breed names for drop down from own db
+  const getBreedList = async () => {
     const data = await server_calls.get_dogdicts()
     console.log(data)
-    setBreedInfo(data)
+    setBreedList(data)
   }
   useEffect( () => {
-    getBreedInfo()
+    getBreedList()
   }, [] ) 
 
 
@@ -53,9 +56,11 @@ const MultipleSelect = () => {
       value,
     );
   };
-  
+    // when selectedBreed changes, fetch the matching dict_breed_id from breedList
+    // set matching ids to state of MatchingIds
+    // dict_breed_id required for TheDogAPI call to retrieve reference_image_id
     useEffect(() => {
-      for ( let breed of breedInfo ) {
+      for ( let breed of breedList ) {
         if (breed.dict_breed_name === selectedBreed) {
           setMatchingIds(breed.dict_breed_id)
           console.log('found dog name')
@@ -65,30 +70,29 @@ const MultipleSelect = () => {
       }
     }, [selectedBreed])
 
-    console.log('breed Details are...')
-    console.log(breedDetails)
     console.log('Matching Ids are...')
     console.log(matchingIds)
-
-  const onSubmit = async (event: any) => {
+  
+  // onSubmit, retrieve all breedDetails described in ResultsTileProps2
+  // set state of breedDetails to data retrieved from dog_server_calls.get
+  const onSubmitSelect = async (event: any) => {
     if (event)event.preventDefault()
     console.log('submitting')
     const details = await dog_server_calls.get(matchingIds as number)
-      setBreedDetails(details)
-      server_calls.create_breed_info(breedDetails)
+      // I think I'm passing data the wrong way. How do I pass this from Results.tsx?
+    setBreedDetails(details)
+      // Do I need an event.target.reset() here?
   }
-  console.log(breedDetails)
 
   return (
     <div className='bg-slate-200'>
-      <form className='flex justify-center' onSubmit={(onSubmit)}>
+      <form className='flex justify-center' onSubmit={(onSubmitSelect)}>
         <FormControl variant="outlined" sx={{ m: 1, width: 500 }}>
           <Stack  
             spacing={2}
             justifyContent={'space-evenly'}>
             <InputLabel id="breed_name-multiple-name-label">Breed Names</InputLabel>
             <Select
-              // {...register(breedDetails)}
               autoWidth={true}
               labelId="breed_name-multiple-name-label"
               value = { selectedBreed }
@@ -98,7 +102,7 @@ const MultipleSelect = () => {
       
             >
               {/* display all breed names listed in the dog_dict table */}
-              { breedInfo.map(({dict_breed_name, dict_breed_id}) => (
+              { breedList.map(({dict_breed_name, dict_breed_id}) => (
                 <MenuItem
                   key={dict_breed_id}
                   value={dict_breed_name}
@@ -126,3 +130,7 @@ const MultipleSelect = () => {
 };
 
 export default MultipleSelect;
+function setBreedDetails(details: any) {
+  throw new Error('Function not implemented.');
+}
+

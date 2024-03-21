@@ -4,7 +4,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 
 function Navbar() {
 
-    const [isVisible, setIsVisible] = useState(false)
+    const [ isVisible, setIsVisible ] = useState(false)
     const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
 
     const signOutOnClick = () => {
@@ -32,8 +32,9 @@ function Navbar() {
       </div>
       <div className='block'>
         <button onClick={dropDown} className='flex items-center px-3 py-2 
-            text-[#723D46] border rounded border-[#723D46] hover:text-[#723D46] 
-            hover:border-[#E26D5C]'>
+          text-[#723D46] border rounded border-[#723D46] hover:text-[#723D46] 
+          hover:border-[#E26D5C]'
+        >
             <i className='fas fa-bars'></i>
         </button>
       </div>
@@ -43,27 +44,27 @@ function Navbar() {
           <button className='p-3 m-5 bg-[#C9CBA3] justify-center'>
             <div>
               <Link to='/' onClick={clicked} className='flex place-itmes-center mt-4 
-                  lg:inline-block lg:mt-0 text-[#723D46] hover:text-[#E26D5C] 
-                  '>
-                      Home
-              </Link>
-            </div>
-          </button>
-          <button className='p-3 m-5 bg-[#C9CBA3] justify-center'>
-            <div>
-              <Link to='/favorites' onClick={clicked} className='flex place-itmes-center mt-4 
-                  lg:inline-block lg:mt-0 text-[#723D46] hover:text-[#E26D5C] 
-                  '>
-                      Favorites
+                lg:inline-block lg:mt-0 text-[#723D46] hover:text-[#E26D5C]' 
+              >
+                Home
               </Link>
             </div>
           </button>
           <button className='p-3 m-5 bg-[#C9CBA3] justify-center'>
             <div>
               <Link to='/search' onClick={clicked} className='flex place-itmes-center mt-4 
-                  lg:inline-block lg:mt-0 text-[#723D46] hover:text-[#E26D5C] 
-                  '>
-                      Search
+                lg:inline-block lg:mt-0 text-[#723D46] hover:text-[#E26D5C]' 
+              >
+                Search
+              </Link>
+            </div>
+          </button>
+          <button className='p-3 m-5 bg-[#C9CBA3] justify-center'>
+            <div>
+              <Link to='/favorites' onClick={clicked} className='flex place-itmes-center mt-4 
+                lg:inline-block lg:mt-0 text-[#723D46] hover:text-[#E26D5C]'
+              >
+                Favorites
               </Link>
             </div>
           </button>
