@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { CardActions, FormControl, InputLabel, MenuItem, Stack } from '@mui/material';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { server_calls } from '../api/server';
@@ -20,6 +20,23 @@ interface ResultsTileProps2 {
   }]
 }
 
+interface BreedDetailsProps {
+  url: string;
+  breeds: [{
+    name: string;
+    breed_group: string;
+    life_span: string;
+    height: {metric: string};
+    weight: {metric: string};
+    temperament: string;
+    reference_image_id: string;
+  }]
+}
+
+interface Props {
+  setBreedDetails: Dispatch<SetStateAction<BreedDetailsProps | undefined>>
+}
+
 // props being fed to BreedList, only using dict_breed_name and dict_breed_id
 interface BreedList {
   dict_breed_name: string;
@@ -27,8 +44,7 @@ interface BreedList {
   dict_id: number;
 }
 
-const MultipleSelect = ( setBreedDetails<setStateAction> ) => {
-
+const MultipleSelect:React.FC<Props> = ({ setBreedDetails }) => {
   const [breedList, setBreedList] = useState<BreedList[]>([]);
   const [selectedBreed, setSelectedBreed] = useState<string>('');
   const [matchingIds, setMatchingIds] = useState<number>();
