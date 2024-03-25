@@ -8,7 +8,7 @@ interface Props {
 
 const AuthChecker = ({ children }: Props) => {
     const navigate = useNavigate();
-    const { isAuthenticated, isLoading, loginWithRedirect } = useAuth0;
+    const { isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
 
     useEffect(() => {
         if (!isLoading && !isAuthenticated) {
@@ -18,7 +18,7 @@ const AuthChecker = ({ children }: Props) => {
 
     useEffect(() => {
         if (!isLoading && isAuthenticated) {
-            navigate('/results');
+            navigate('/search');
         }
     }, [isLoading, isAuthenticated, navigate]);
 

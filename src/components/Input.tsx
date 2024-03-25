@@ -5,6 +5,7 @@ interface InputType {
     name: string,
     placeholder: string,
     onChange: (event: SelectChangeEvent<string>) => void
+    sx?: {mx: number}
 }
 
 const Input = forwardRef(( props: InputType, ref) => {

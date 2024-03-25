@@ -4,6 +4,8 @@
 import { Card, CardActions, CardContent, CardMedia, SelectChangeEvent, Typography } from "@mui/material"
 import ConButton from "./ConButton"
 import Input from "./Input"
+import { useGetFavData } from "../custom-hooks/FetchFavData"
+import useGetFavList from "../custom-hooks/FetchFavList"
 import { useState, useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { server_calls } from "../api/server"
@@ -25,29 +27,24 @@ interface FavoritesList {
   breedNotes_Id: string;
   notes: string;
   id: string;
-  breed_info_id: string;
+  image_id: string;
 }
 
 const FavoritesTile = ( props: FavDataProps ) => {
 
   const { register, handleSubmit } = useForm({})
+  // the actual notes the user is typing in
   const [ favNotes, setFavNotes ] = useState<string>('')
-  const [ favData, setFavData ] = useState<FavDataProps>()
+  // List of favorited dog breeds by the user
   const [ favList, setFavList ] = useState<FavoritesList[]>([])
+  // Data to fill FavoritesTile
+  const { FavData, getFavData } = useGetFavData()
 
   // on mount, retrieves all favorited breeds by the current user
-  const getFavList = async () => {
-    const data = await server_calls.get_notes()
-    console.log(data)
-    setFavList(data)
-  }
-  useEffect( () => {
-    getFavList()
-  }, [] )
+  
 
   const handleFavNotesChange = (event: SelectChangeEvent<string>) => {
-    let value = event.target.value
-    setFavNotes( value )
+    setFavNotes( event.target.value )
     window.location.reload()
   }
 
@@ -56,11 +53,11 @@ const FavoritesTile = ( props: FavDataProps ) => {
     window.location.reload()
   }
 
-  // const onSubmit = (data: string, event: any) => {
-  //   if (/* some qualifier */) {
-  //     server_calls.update_note(breedNotes_Id, favNotes)
-  //   }
-  // }
+  const onSubmit = (data: string, event: any) => {
+    if ( notes ) {
+      server_calls.update_note(breedNotes_Id, favNotes)
+    }
+  }
 
   return (
     <div>
@@ -94,13 +91,20 @@ const FavoritesTile = ( props: FavDataProps ) => {
           </CardContent>
           <div className='bg-slate-200'>
             <label className='px-2' htmlFor='notes'>Notes</label>
-            <Input {...register('note_input')} name='note_input' onChange={ handleFavNotesChange }
+            <Input 
+              {...register('note_input')} 
+              name='note_input' 
+              // value={ favNotes }
+              onChange={ handleFavNotesChange }
               placeholder='Add notes about this breed here if you would like to add it to your favorites.' 
             />
           </div>
           <div className='content-between bg-slate-200'>
             <CardActions className='flex justify-end mr-5'>
-              <ConButton type='submit' id='favorite-update'
+              <ConButton 
+                type='submit' 
+                id='favorite-update'
+                disabled={ favNotes.length === 0 }
                 className='flex justify-start bg-slate-300 p-2 rounded hover:gl-slate-800 text-white'
               >
                 Edit Favorite

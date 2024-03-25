@@ -101,7 +101,7 @@ const MultipleSelect:React.FC<Props> = ({ setBreedDetails }) => {
   }
 
   return (
-    <div className='bg-slate-200'>
+    <div className='bg-[#A4BAB7]'>
       <form className='flex justify-center' onSubmit={(onSubmitSelect)}>
         <FormControl variant="outlined" sx={{ m: 1, width: 500 }}>
           <Stack  
@@ -109,6 +109,7 @@ const MultipleSelect:React.FC<Props> = ({ setBreedDetails }) => {
             justifyContent={'space-evenly'}>
             <InputLabel id="breed_name-multiple-name-label">Breed Names</InputLabel>
             <Select
+              className='bg-gray-200'
               autoWidth={true}
               labelId="breed_name-multiple-name-label"
               value = { selectedBreed }
@@ -127,11 +128,11 @@ const MultipleSelect:React.FC<Props> = ({ setBreedDetails }) => {
                 </MenuItem>
               )) }
             </Select>
-            <CardActions>
+            <CardActions className='justify-end'>
               <ConButton 
                 type='submit'
                 id='search-submit' 
-                className='submit-button flex justify-start m-3 bg-[#C9CBA3]
+                className='submit-button flex justify-center m-3 bg-[#C9CBA3]
                  text-[#723D46] p-2 rounded hover:bg-[#472D30] hover:text-[#E26D5C]'
               >
                 Submit

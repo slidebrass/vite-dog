@@ -6,6 +6,7 @@ import Input from './Input';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { server_calls } from '../api/server';
+import { auth0Config } from '../config/auth0.config';
 
 interface BreedDetailsProps {
   url: string;
@@ -24,70 +25,55 @@ interface BreedDetailsProps {
 //   name: string;
 // }
 
-// interface ResultsTileProps {
-//   url: string;
-//   breeds: [{
-//     name: string;
-//     breed_group: string;
-//     life_span: string;
-//     height: {metric: string};
-//     weight: {metric: string};
-//     temperament: string;
-//     reference_image_id: string;
-//   }];
 
-// }
-
-// interface ResultsTileProps2 {
-//   url: string;
-//   breeds: [{
-//     name: string;
-//     breed_group: string;
-//     life_span: string;
-//     height: {metric: string};
-//     weight: {metric: string};
-//     temperament: string;
-//     reference_image_id: string;
-//   }]
-// }
-
-// trying to pass in breedDetails from Results.tsx to populate the <Card>
-const ResultsTile = ({ breedDetails }) => {
+// Passing in breedDetails from Results.tsx to populate the <Card>
+const ResultsTile = ({ breedDetails }: { breedDetails: BreedDetailsProps}) => {
   const { register, handleSubmit } = useForm({})
 
   // setting up state for the notes users can write if they wish to save a breed as a favorite
   const [notes, setNotes] = useState<string>('')
+  const [id, setId] = useState<string>('')
 
   const handleNoteChange = (event: SelectChangeEvent<string>) => {
-    let note = event.target.value
-    setNotes(
-      note
-    )
+    setNotes (event.target.value)
   }
   console.log(breedDetails)
 
-  // How do I store, submit, or add to data the current user id?
-  // Same with breed_info_id or dict_breed_id
-  const onSubmitFavorite = (data: string, event: any) => {
+// TODO: setId from user.id
+  const onSubmitFavorite = (data: any, event: any) => {
     if (event) event.preventDefault()
     console.log('submitting')
-    server_calls.create_note(data)
-
+    console.log(data)
+    fetch ('http://127.0.0.1:5000/api/notes', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        notes: {notes},
+        id: {id},
+        image_id: breedDetails.breeds[0].reference_image_id
+      }) 
+      .then((res) => res.json())
+      .then(console.log(res))
+      .then(server_calls.create_note(res))
+    })
+    
+// notes, id, image_id, breedNotes_Id
   }
 
   return (
-    <div className='bg-gray-500'>
+    <div className='bg-gray-200'>
       {breedDetails
         ? (
-          <form onSubmit={handleSubmit(onSubmitFavorite)}>
-            <Card className='items-center mx-auto pt-2 ' sx={{ maxWidth: 500 }}>
+          <form onSubmit={handleSubmit(onSubmitFavorite)}
+            className='py-5'
+          >
+            <Card className='items-center mx-auto' sx={{ maxWidth: 750 }}>
               <CardMedia
-                className='bg-slate-200'
+                className='bg-[#EFF2C0]'
                 component='img'
-                // TypeError: Cannot read properties of undefined (reading 'url')
                 image={breedDetails.url}
               />
-              <CardContent className='bg-slate-200'>
+              <CardContent className='bg-[#A4BAB7]'>
                 <Typography gutterBottom variant='h5' component='div'>
                   {`Breed Name: ${breedDetails.breeds[0].name}`}
                 </Typography>
@@ -109,13 +95,22 @@ const ResultsTile = ({ breedDetails }) => {
                   {`Temperament: ${breedDetails.breeds[0].temperament}`}
                 </Typography>
               </CardContent>
-              <div>
-                <label htmlFor='notes'>Notes</label>
-                <Input {...register('note_input')} name='note_input' onChange={handleNoteChange}
-                  placeholder='Add notes about this breed here if you would like to add it to your favorites.' />
+              <div className='bg-slate-200'>
+                <label className='mx-2' htmlFor='notes'>Notes</label>
               </div>
-              <CardActions>
-                <ConButton type='submit' id='favorite-button'
+              <div className='pr-7 bg-slate-200'>
+                <Input {...register('note_input')} 
+                  name='note_input' 
+                  onChange={handleNoteChange}
+                  sx={{mx: 2}} 
+                  placeholder='Add notes about this breed here if you would like to add it to your favorites.' 
+                />
+              </div>
+              <CardActions className='justify-end px-4 bg-slate-200'>
+                <ConButton 
+                  type='submit' 
+                  id='favorite-button'
+                  disabled={notes.length === 0}
                   className='flex justify-start bg-slate-300 p-2 rounded hover:gl-slate-800 text-white'
                 >
                   Add Favorite

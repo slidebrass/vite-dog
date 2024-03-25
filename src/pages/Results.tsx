@@ -17,7 +17,6 @@ interface BreedDetailsProps {
 
 const Results = () => {
   // props stored in state
-  // const [name, setName] = useState('bob')
   const [breedDetails, setBreedDetails] = useState<BreedDetailsProps>()
 
   
@@ -34,8 +33,6 @@ const Results = () => {
       <div>
         <ResultsTile 
           breedDetails = { breedDetails }
-          // url = {breedDetails.url}
-          // breeds[0]{name} = {breedDetails.breeds[0].name}
         />
       </div>
     </>

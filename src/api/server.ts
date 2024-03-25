@@ -109,7 +109,7 @@ export const server_calls = {
   },
 
   get_user: async (id:string) => {
-    const response = await fetch(`${endpoint}/api/users${id}`,
+    const response = await fetch(`${endpoint}/api/users/${id}`,
     {
       method: 'GET',
       headers: {
