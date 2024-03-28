@@ -16,7 +16,7 @@ const AuthChecker = ({ children }: Props) => {
         }
     }, [isLoading, isAuthenticated, loginWithRedirect]);
 
-    // check to see if user is already in auth0user
+    // check to see if user is already in auth0user table
     // run query by auth_user
     // if not in auth_user, create_profile; if so, continue
     useEffect(() => {
@@ -25,15 +25,10 @@ const AuthChecker = ({ children }: Props) => {
         }
     }, [isLoading, isAuthenticated, navigate]);
 
+
     return (
       <>
         <div>{children}</div>
-        isAuthenticated && (
-          <div>
-            <h2>{user?.name}</h2>
-            <h2>{user?.sub}</h2>
-          </div>
-        )
       </>
     );
 };

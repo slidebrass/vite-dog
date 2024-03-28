@@ -178,6 +178,26 @@ export const server_calls = {
     return;
   },
 
+  // profiles routes
+  create_profile: async (data: any = {}) => {
+    const response = await fetch(`${endpoint}/api/profiles`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-access-token': `Bearer ${token}`
+      }
+    })
+
+    if (!response.ok) {
+      throw new Error('Failed to create data on the server')
+    }
+
+    return await response.json()
+  },
+
+  // get_profile: async ()
+
   // notes routes
   get_notes: async () => {
     const response = await fetch(`${endpoint}/api/notes`,

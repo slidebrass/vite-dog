@@ -32,7 +32,7 @@ const Results = () => {
       </div>
       <div>
         <ResultsTile 
-          breedDetails = { breedDetails }
+          breedDetails = { breedDetails as BreedDetailsProps}
         />
       </div>
     </>

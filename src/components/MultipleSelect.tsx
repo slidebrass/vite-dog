@@ -95,9 +95,7 @@ const MultipleSelect:React.FC<Props> = ({ setBreedDetails }) => {
     if (event)event.preventDefault()
     console.log('submitting')
     const details = await dog_server_calls.get(matchingIds as number)
-      // I think I'm passing data the wrong way. How do I pass this from Results.tsx?
     setBreedDetails(details)
-      // Do I need an event.target.reset() here?
   }
 
   return (

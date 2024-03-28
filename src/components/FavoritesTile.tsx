@@ -30,15 +30,14 @@ interface FavoritesList {
   image_id: string;
 }
 
-// TODO: should be passing in favList
-const FavoritesTile = ({ FavoritesList }: { FavoritesList: BreedDetailsProps}) => {
+const FavoritesTile = ({ favList }: { favList: FavoritesList}, { breedDetails }: { breedDetails: BreedDetailsProps }) => {
 
   const { register, handleSubmit } = useForm({})
 
   // the actual notes the user is typing in
   const [favNotes, setFavNotes] = useState<string>('')
   // List of favorited dog breeds by the user
-  const [favList, setFavList] = useState<FavoritesList[]>([])
+  // const [favList, setFavList] = useState<FavoritesList[]>([])
   // Data to fill FavoritesTile
   const { dogFavData, getFavData } = useGetFavData({})
 
@@ -96,6 +95,10 @@ const FavoritesTile = ({ FavoritesList }: { FavoritesList: BreedDetailsProps}) =
                 <Typography variant='body2'>
                   {`Temperament: ${breedDetails.breeds[0].temperament}`}
                 </Typography>
+                {/* should this be a useRef? */}
+                <Typography variant="body2">
+                  {`Previously written notes: ${favNotes}`}
+                </Typography>
               </CardContent>
               <div className='bg-[#EAE2B7]'>
                 <label className='mx-2' htmlFor='notes'>Notes:</label>
@@ -105,7 +108,7 @@ const FavoritesTile = ({ FavoritesList }: { FavoritesList: BreedDetailsProps}) =
                   // value={ favNotes }
                   onChange={handleFavNotesChange}
                   sx={{mx: 2}}
-                  placeholder='Add notes about this breed here if you would like to add it to your favorites.'
+                  placeholder='Add notes about this breed here if you would like to change what you wrote.'
                 />
               </div>
               <div className='content-between bg-[#EAE2B7]'>
@@ -113,7 +116,6 @@ const FavoritesTile = ({ FavoritesList }: { FavoritesList: BreedDetailsProps}) =
                   <ConButton
                     type='submit'
                     id='favorite-update'
-                    disabled={favNotes.length === 0}
                     className='flex justify-start bg-slate-300 p-2 rounded hover:gl-slate-800 text-white'
                   >
                     Edit Favorite
