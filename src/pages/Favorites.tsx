@@ -1,6 +1,7 @@
 import { Key, useState, useEffect } from "react"
 import FavoritesTile from "../components/FavoritesTile"
 import { server_calls } from "../api/server";
+import { useGetFavData } from "../custom-hooks/FetchFavData";
 
 interface favListProps {
   breedNotes_Id: string;
@@ -23,30 +24,24 @@ interface FavDataProps {
 }
 
 const Favorites = () => {
-  const useGetFavList = () => {
-    const [favList, setFavList] = useState<[]>([])
-    const [ favData, setFavData ] = useState<FavDataProps>()
-  
-    const getFavList = async () => {
-      const data = await server_calls.get_notes()
-      console.log(data)
-      setFavList(data)
-    }
-    useEffect( () => {
-      getFavList()
-    }, [] )
-  
-    return { favList, getFavList }
-    // return favData for each tile or this handled in FavoritesTile.tsx?
+  const [favList, setFavList] = useState<favListProps[]>([])
+  // const { dogFavData, setFavData } = useGetFavData()
+
+  const getFavList = async () => {
+    const data = await server_calls.get_notes()
+    console.log(data)
+    setFavList(data)
   }
+  useEffect( () => {
+    getFavList()
+  }, [] )
+    // return favData for each tile or this handled in FavoritesTile.tsx?
 
   return (
     <div>
-      {favList
-      ? (
         <div className="favorites-tiles">
         {/* get request from get_notes */}
-          { favList.map((item: { breedNotes_Id: string; notes: string; id: string; breed_info_id: string }, index: Key | null | undefined) => (
+          { favList.map((item: { breedNotes_Id: string; notes: string; id: string; image_id: string }, index: Key | null | undefined) => (
             <FavoritesTile 
               key={index} 
               breedNotes_Id={item.breedNotes_Id} 
@@ -56,9 +51,6 @@ const Favorites = () => {
             />
           ))}
         </div>      
-      ) : null
-    }
-      
     </div>
   )
 }

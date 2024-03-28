@@ -5,7 +5,7 @@ const useGetFavList = () => {
   const [ favList, setFavList ] = useState<[]>([])
 
   async function handleListFetch() {
-    const result<([])> = server_calls.get_notes;
+    const result = server_calls.get_notes;
     setFavList(result)
   }
 

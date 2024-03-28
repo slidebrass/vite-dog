@@ -6,7 +6,6 @@ import Input from './Input';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { server_calls } from '../api/server';
-import { auth0Config } from '../config/auth0.config';
 
 interface BreedDetailsProps {
   url: string;
@@ -32,10 +31,11 @@ const ResultsTile = ({ breedDetails }: { breedDetails: BreedDetailsProps}) => {
 
   // setting up state for the notes users can write if they wish to save a breed as a favorite
   const [notes, setNotes] = useState<string>('')
-  const [id, setId] = useState<string>('')
+  // const [id, setId] = useState<string>('')
 
   const handleNoteChange = (event: SelectChangeEvent<string>) => {
     setNotes (event.target.value)
+    console.log(notes)
   }
   console.log(breedDetails)
 
@@ -43,19 +43,26 @@ const ResultsTile = ({ breedDetails }: { breedDetails: BreedDetailsProps}) => {
   const onSubmitFavorite = (data: any, event: any) => {
     if (event) event.preventDefault()
     console.log('submitting')
-    console.log(data)
-    fetch ('http://127.0.0.1:5000/api/notes', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({
-        notes: {notes},
-        id: {id},
-        image_id: breedDetails.breeds[0].reference_image_id
-      }) 
-      .then((res) => res.json())
-      .then(console.log(res))
-      .then(server_calls.create_note(res))
+    // console.log(id)
+    console.log(data['notes'])
+    console.log(breedDetails.breeds[0].reference_image_id)
+    server_calls.create_note({
+      'notes': data['notes'],
+      'image_id': breedDetails.breeds[0].reference_image_id
     })
+    // fetch ('http://127.0.0.1:5000/api/notes', {
+    //   method: 'POST',
+    //   headers: {'Content-Type': 'application/json'},
+    //   {'x-access-token': }
+    //   body: JSON.stringify({
+    //     notes: {notes},
+    //     image_id: breedDetails.breeds[0].reference_image_id
+    //   })}) 
+    //   .then((res: {json: () => any }) => res.json())
+    //   .then((data) => {console.log(data); server_calls.create_note(data)})
+      // .catch((error) => {console.error(error)})
+      // .then(server_calls.create_note(res))
+    
     
 // notes, id, image_id, breedNotes_Id
   }
@@ -73,45 +80,48 @@ const ResultsTile = ({ breedDetails }: { breedDetails: BreedDetailsProps}) => {
                 component='img'
                 image={breedDetails.url}
               />
-              <CardContent className='bg-[#A4BAB7]'>
+              <CardContent className='bg-[#D62828]'>
                 <Typography gutterBottom variant='h5' component='div'>
                   {`Breed Name: ${breedDetails.breeds[0].name}`}
                 </Typography>
               </CardContent>
-              <CardContent className='bg-slate-300'>
-                <Typography variant='body2' color='text.secondary'>
+              <CardContent className='bg-[#FCBF49]'>
+                <Typography variant='body2'>
                   {`Breed Group: ${breedDetails.breeds[0].breed_group}`}
                 </Typography>
-                <Typography variant='body2' color='text.secondary'>
+                <Typography variant='body2'>
                   {`Life Span: ${breedDetails.breeds[0].life_span}`}
                 </Typography>
-                <Typography variant='body2' color='text.secondary'>
+                <Typography variant='body2'>
                   {`Weight: ${breedDetails.breeds[0].weight.metric} Kg`}
                 </Typography>
-                <Typography variant='body2' color='text.secondary'>
+                <Typography variant='body2'>
                   {`Height: ${breedDetails.breeds[0].height.metric} cm`}
                 </Typography>
-                <Typography variant='body2' color='text.secondary'>
+                <Typography variant='body2'>
                   {`Temperament: ${breedDetails.breeds[0].temperament}`}
                 </Typography>
               </CardContent>
-              <div className='bg-slate-200'>
-                <label className='mx-2' htmlFor='notes'>Notes</label>
+              <div className='bg-[#EAE2B7]'>
+                <label className='mx-2' htmlFor='notes'>Notes:</label>
               </div>
-              <div className='pr-7 bg-slate-200'>
-                <Input {...register('note_input')} 
-                  name='note_input' 
+              <div className='pr-7 bg-[#EAE2B7]'>
+                <Input {...register('notes')} 
+                  name='notes' 
                   onChange={handleNoteChange}
                   sx={{mx: 2}} 
                   placeholder='Add notes about this breed here if you would like to add it to your favorites.' 
                 />
               </div>
-              <CardActions className='justify-end px-4 bg-slate-200'>
+              <CardActions 
+                className='justify-end bg-[#EAE2B7]'
+                sx={{pr: 2}}
+              >
                 <ConButton 
                   type='submit' 
                   id='favorite-button'
                   disabled={notes.length === 0}
-                  className='flex justify-start bg-slate-300 p-2 rounded hover:gl-slate-800 text-white'
+                  
                 >
                   Add Favorite
                 </ConButton>

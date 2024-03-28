@@ -101,33 +101,33 @@ const MultipleSelect:React.FC<Props> = ({ setBreedDetails }) => {
   }
 
   return (
-    <div className='bg-[#A4BAB7]'>
-      <form className='flex justify-center' onSubmit={(onSubmitSelect)}>
+    <div className='bg-[#FCBF49]'>
+      <form className='flex justify-center pt-2' onSubmit={(onSubmitSelect)}>
         <FormControl variant="outlined" sx={{ m: 1, width: 500 }}>
           <Stack  
             spacing={2}
             justifyContent={'space-evenly'}>
-            <InputLabel id="breed_name-multiple-name-label">Breed Names</InputLabel>
-            <Select
-              className='bg-gray-200'
-              autoWidth={true}
-              labelId="breed_name-multiple-name-label"
-              value = { selectedBreed }
-              id="breed_name=multiple-name"
-              onChange={ handleBreedNameChange }
-              // multiple
-      
-            >
-              {/* display all breed names listed in the dog_dict table */}
-              { breedList.map(({dict_breed_name, dict_breed_id}) => (
-                <MenuItem
-                  key={dict_breed_id}
-                  value={dict_breed_name}
-                >
-                  {dict_breed_name}
-                </MenuItem>
-              )) }
-            </Select>
+            <InputLabel id="breed_name-multiple-name-label" className='text-[#003049] text-lg'>Breed Names</InputLabel>
+              <Select
+                className='bg-gray-200'
+                autoWidth={true}
+                labelId="breed_name-multiple-name-label"
+                value = { selectedBreed }
+                id="breed_name=multiple-name"
+                onChange={ handleBreedNameChange }
+                // multiple
+        
+              >
+                {/* display all breed names listed in the dog_dict table */}
+                { breedList.map(({dict_breed_name, dict_breed_id}) => (
+                  <MenuItem
+                    key={dict_breed_id}
+                    value={dict_breed_name}
+                  >
+                    {dict_breed_name}
+                  </MenuItem>
+                )) }
+              </Select>
             <CardActions className='justify-end'>
               <ConButton 
                 type='submit'

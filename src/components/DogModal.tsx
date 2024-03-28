@@ -1,12 +1,12 @@
 import DogApiForm from "./DogApiForm";
 
-type Props = {
+type ModalProps = {
   breed_name?: string;
   open: boolean;
   onClose: () => void;
 }
 
-const DogModal = ( props: Props ) => {
+const DogModal = ( props: ModalProps ) => {
   if (!props.open ) return (<></>)
   return (
     <div

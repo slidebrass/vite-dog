@@ -8,7 +8,7 @@ interface Props {
 
 const AuthChecker = ({ children }: Props) => {
     const navigate = useNavigate();
-    const { isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
+    const { user, isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
 
     useEffect(() => {
         if (!isLoading && !isAuthenticated) {
@@ -16,6 +16,9 @@ const AuthChecker = ({ children }: Props) => {
         }
     }, [isLoading, isAuthenticated, loginWithRedirect]);
 
+    // check to see if user is already in auth0user
+    // run query by auth_user
+    // if not in auth_user, create_profile; if so, continue
     useEffect(() => {
         if (!isLoading && isAuthenticated) {
             navigate('/search');
@@ -23,7 +26,15 @@ const AuthChecker = ({ children }: Props) => {
     }, [isLoading, isAuthenticated, navigate]);
 
     return (
-        <>{children}</>
+      <>
+        <div>{children}</div>
+        isAuthenticated && (
+          <div>
+            <h2>{user?.name}</h2>
+            <h2>{user?.sub}</h2>
+          </div>
+        )
+      </>
     );
 };
 
