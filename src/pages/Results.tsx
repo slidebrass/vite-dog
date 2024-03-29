@@ -19,10 +19,6 @@ const Results = () => {
   // props stored in state
   const [breedDetails, setBreedDetails] = useState<BreedDetailsProps>()
 
-  
-
-
-
   return (
     <>
       <div>

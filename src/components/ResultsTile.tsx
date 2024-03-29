@@ -6,6 +6,8 @@ import Input from './Input';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { server_calls } from '../api/server';
+import { useAuth0 } from '@auth0/auth0-react';
+
 
 interface BreedDetailsProps {
   url: string;
@@ -28,6 +30,8 @@ interface BreedDetailsProps {
 // Passing in breedDetails from Results.tsx to populate the <Card>
 const ResultsTile = ({ breedDetails }: { breedDetails: BreedDetailsProps}) => {
   const { register, handleSubmit } = useForm({})
+  const { user } = useAuth0();
+
 
   // setting up state for the notes users can write if they wish to save a breed as a favorite
   const [notes, setNotes] = useState<string>('')
@@ -46,9 +50,11 @@ const ResultsTile = ({ breedDetails }: { breedDetails: BreedDetailsProps}) => {
     // console.log(id)
     console.log(data['notes'])
     console.log(breedDetails.breeds[0].reference_image_id)
+    console.log(user?.sub)
     server_calls.create_note({
       'notes': data['notes'],
-      'image_id': breedDetails.breeds[0].reference_image_id
+      'image_id': breedDetails.breeds[0].reference_image_id,
+      'user_id': user?.sub
     })
     // fetch ('http://127.0.0.1:5000/api/notes', {
     //   method: 'POST',
@@ -117,6 +123,7 @@ const ResultsTile = ({ breedDetails }: { breedDetails: BreedDetailsProps}) => {
                 className='justify-end bg-[#EAE2B7]'
                 sx={{pr: 2}}
               >
+                {/* TODO: add success or page reload */}
                 <ConButton 
                   type='submit' 
                   id='favorite-button'

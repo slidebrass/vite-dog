@@ -4,11 +4,12 @@
 import { Card, CardActions, CardContent, CardMedia, SelectChangeEvent, Typography } from "@mui/material"
 import ConButton from "./ConButton"
 import Input from "./Input"
-import { useGetFavData } from "../custom-hooks/FetchFavData"
-import useGetFavList from "../custom-hooks/FetchFavList"
-import { useState, useEffect } from "react"
+
+import { useState, useRef, useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { server_calls } from "../api/server"
+import { useAuth0 } from "@auth0/auth0-react"
+import { dog_server_calls } from "../api/dog_server"
 
 interface BreedDetailsProps {
   url: string;
@@ -26,21 +27,32 @@ interface BreedDetailsProps {
 interface FavoritesList {
   breedNotes_Id: string;
   notes: string;
-  id: string;
+  user_id: string;
   image_id: string;
 }
-
-const FavoritesTile = ({ favList }: { favList: FavoritesList}, { breedDetails }: { breedDetails: BreedDetailsProps }) => {
+// List of favorited dog breeds by the user being passed in
+const FavoritesTile = ({ favList }: { favList: FavoritesList}) => {
 
   const { register, handleSubmit } = useForm({})
+  // TODO: define current user
+  const { user } = useAuth0()
 
+  // TODO: load favData on mount
   // the actual notes the user is typing in
   const [favNotes, setFavNotes] = useState<string>('')
-  // List of favorited dog breeds by the user
-  // const [favList, setFavList] = useState<FavoritesList[]>([])
-  // Data to fill FavoritesTile
-  const { dogFavData, getFavData } = useGetFavData({})
+  const notesRef = useRef(favNotes)
 
+  // Data to fill FavoritesTile
+  const [favData, setFavData] = useState<BreedDetailsProps>()
+
+  const getFavData = async () => {
+    const data = await dog_server_calls.get_image_data(favList.image_id)
+    console.log(`Writing data: ${data}`)
+    setFavData(data)
+  }
+  useEffect( () => {
+    getFavData()
+  }, [])
   // on mount, retrieves all favorited breeds by the current user
   // taken care of in Favorites.tsx
 
@@ -49,11 +61,13 @@ const FavoritesTile = ({ favList }: { favList: FavoritesList}, { breedDetails }:
     window.location.reload()
   }
 
-  const deleteFav = () => {
-    server_calls.delete_note(favList[{ key }].breedNotes_Id)
-    window.location.reload()
-  }
+  // reenable and fix "key"
+  // const deleteFav = () => {
+  //   server_calls.delete_note(favList[{ key }].breedNotes_Id)
+  //   window.location.reload()
+  // }
 
+  // TODO: doublecheck these parameters
   const onSubmitUpdate = (data: any, event: any) => {
     if (favNotes) {
       server_calls.update_note(favList.breedNotes_Id, favNotes)
@@ -62,7 +76,7 @@ const FavoritesTile = ({ favList }: { favList: FavoritesList}, { breedDetails }:
 
   return (
     <div className="bg-gray-200">
-      {breedDetails
+      {favData
         ? (
           <form 
             onSubmit={handleSubmit(onSubmitUpdate)}
@@ -72,32 +86,31 @@ const FavoritesTile = ({ favList }: { favList: FavoritesList}, { breedDetails }:
               <CardMedia 
                 className='bg-[#EFF2C0]'
                 component='img'
-                image={breedDetails.url}
+                image={favData.url}
               />
               <CardContent className='bg-[#D62828]'>
                 <Typography gutterBottom variant='h5' component='div'>
-                  {`Breed Name: ${breedDetails.breeds[0].name}`}
+                  {`Breed Name: ${favData.breeds[0].name}`}
                 </Typography>
               </CardContent>
               <CardContent className='bg-[#FCBF49]'>
                 <Typography variant='body2'>
-                  {`Breed Group: ${breedDetails.breeds[0].breed_group}`}
+                  {`Breed Group: ${favData.breeds[0].breed_group}`}
                 </Typography>
                 <Typography variant='body2'>
-                  {`Life Span: ${breedDetails.breeds[0].life_span}`}
+                  {`Life Span: ${favData.breeds[0].life_span}`}
                 </Typography>
                 <Typography variant='body2'>
-                  {`Weight: ${breedDetails.breeds[0].weight.metric} Kg`}
+                  {`Weight: ${favData.breeds[0].weight.metric} Kg`}
                 </Typography>
                 <Typography variant='body2'>
-                  {`Height: ${breedDetails.breeds[0].height.metric} cm`}
+                  {`Height: ${favData.breeds[0].height.metric} cm`}
                 </Typography>
                 <Typography variant='body2'>
-                  {`Temperament: ${breedDetails.breeds[0].temperament}`}
+                  {`Temperament: ${favData.breeds[0].temperament}`}
                 </Typography>
-                {/* should this be a useRef? */}
                 <Typography variant="body2">
-                  {`Previously written notes: ${favNotes}`}
+                  {`Previously written notes: ${notesRef}`}
                 </Typography>
               </CardContent>
               <div className='bg-[#EAE2B7]'>
@@ -120,11 +133,11 @@ const FavoritesTile = ({ favList }: { favList: FavoritesList}, { breedDetails }:
                   >
                     Edit Favorite
                   </ConButton>
-                  <ConButton onClick={deleteFav} type='button' id='favorite-delete'
+                  {/* <ConButton onClick={deleteFav} type='button' id='favorite-delete'
                     className='flex justify-start bg-slate-300 p-2 rounded hover:gl-slate-800 text-white'
                   >
                     Delete Favorite
-                  </ConButton>
+                  </ConButton> */}
                 </CardActions>
               </div>
             </Card>

@@ -199,8 +199,12 @@ export const server_calls = {
   // get_profile: async ()
 
   // notes routes
-  get_notes: async () => {
-    const response = await fetch(`${endpoint}/api/notes`,
+  get_notes: async ( user_id: string|undefined ) => {
+    if ( user_id == undefined ) {
+      throw new Error('User is unauthenticated.')
+    }
+
+    const response = await fetch(`${endpoint}/api/notes/all/${user_id}`,
     {
       method: 'GET',
       headers: {
@@ -216,22 +220,22 @@ export const server_calls = {
     return await response.json()
   },
 
-  get_note: async (breedNotes_Id: string) => {
-    const response = await fetch(`${endpoint}/api/notes${breedNotes_Id}`,
-    {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-access-token': `Bearer ${token}`
-      }
-    })
+  // get_note: async (breedNotes_Id: string) => {
+  //   const response = await fetch(`${endpoint}/api/notes${breedNotes_Id}`,
+  //   {
+  //     method: 'GET',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       'x-access-token': `Bearer ${token}`
+  //     }
+  //   })
 
-    if (!response.ok) {
-      throw new Error('Failed to fetch data from the server')
-    }
+  //   if (!response.ok) {
+  //     throw new Error('Failed to fetch data from the server')
+  //   }
 
-    return await response.json()
-  },
+  //   return await response.json()
+  // },
 
   create_note: async (data:any = {}) => {
     const response = await fetch(`${endpoint}/api/notes`,
