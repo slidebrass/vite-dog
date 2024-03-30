@@ -1,23 +1,27 @@
-import { SelectChangeEvent, TextField } from '@mui/material';
-import { forwardRef } from 'react';
+import { TextField } from '@mui/material';
+import React, { ChangeEventHandler } from 'react';
 
 interface InputType {
     name: string,
     placeholder: string,
-    onChange: (event: SelectChangeEvent<string>) => void
+    onChange: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>
     sx?: {mx: number}
+    value: string
 }
 
-const Input = forwardRef(( props: InputType, ref) => {
+const Input: React.FC<InputType> = (({ name, placeholder, onChange, sx, value } ) => {
     return (
         <TextField
             variant='outlined'
             margin='normal'
-            inputRef={ref}
             fullWidth
             multiline={true}
             type='text'
-            {...props}
+            name={name}
+            placeholder={placeholder}
+            onChange={onChange}
+            sx={sx}
+            value={value}
         >
         </TextField>
     )

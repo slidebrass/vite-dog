@@ -1,14 +1,14 @@
 // Need a reusable tile to display dog image, dog breed, and various attributes of the dog.
-// Will also include sections for the user to make notes and do CRUD operations somehow.
+// Will also include sections for the user to make notes and do CRUD operations.
 
-import { Card, CardActions, CardContent, CardMedia, SelectChangeEvent, Typography } from "@mui/material"
+import { Card, CardActions, CardContent, CardMedia, Typography } from "@mui/material"
 import ConButton from "./ConButton"
 import Input from "./Input"
+import { FavoriteType } from "../types/favorites"
 
-import { useState, useRef, useEffect } from "react"
+import React, { useState, useEffect, ChangeEventHandler } from "react"
 import { useForm } from "react-hook-form"
 import { server_calls } from "../api/server"
-import { useAuth0 } from "@auth0/auth0-react"
 import { dog_server_calls } from "../api/dog_server"
 
 interface BreedDetailsProps {
@@ -24,30 +24,22 @@ interface BreedDetailsProps {
   }]
 }
 
-interface FavoritesList {
-  breedNotes_Id: string;
-  notes: string;
-  user_id: string;
-  image_id: string;
-}
+
 // List of favorited dog breeds by the user being passed in
-const FavoritesTile = ({ favList }: { favList: FavoritesList}) => {
+const FavoritesTile: React.FC<FavoriteType> = ( favList ) => {
 
   const { register, handleSubmit } = useForm({})
-  // TODO: define current user
-  const { user } = useAuth0()
 
-  // TODO: load favData on mount
   // the actual notes the user is typing in
   const [favNotes, setFavNotes] = useState<string>('')
-  const notesRef = useRef(favNotes)
+  // notes loaded onto the card for display
+  const [prevNotes, setPrevNotes] = useState(favList.notes)
 
   // Data to fill FavoritesTile
   const [favData, setFavData] = useState<BreedDetailsProps>()
 
   const getFavData = async () => {
     const data = await dog_server_calls.get_image_data(favList.image_id)
-    console.log(`Writing data: ${data}`)
     setFavData(data)
   }
   useEffect( () => {
@@ -56,22 +48,21 @@ const FavoritesTile = ({ favList }: { favList: FavoritesList}) => {
   // on mount, retrieves all favorited breeds by the current user
   // taken care of in Favorites.tsx
 
-  const handleFavNotesChange = (event: SelectChangeEvent<string>) => {
+  const handleFavNotesChange: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> = (event) => {
     setFavNotes(event.target.value)
-    window.location.reload()
   }
 
-  // reenable and fix "key"
-  // const deleteFav = () => {
-  //   server_calls.delete_note(favList[{ key }].breedNotes_Id)
-  //   window.location.reload()
-  // }
+  // TODO: change state of favList; currently deletes breed but does not remove tile until page refreshes
+  const deleteFav = () => {
+    server_calls.delete_note(favList.breedNotes_Id)
+    
+  }
 
-  // TODO: doublecheck these parameters
   const onSubmitUpdate = (data: any, event: any) => {
-    if (favNotes) {
-      server_calls.update_note(favList.breedNotes_Id, favNotes)
-    }
+    if (event) event.preventDefault()
+    server_calls.update_note(favList.breedNotes_Id, data['notes'])
+    setPrevNotes(favNotes)
+    setFavNotes('')
   }
 
   return (
@@ -110,15 +101,17 @@ const FavoritesTile = ({ favList }: { favList: FavoritesList}) => {
                   {`Temperament: ${favData.breeds[0].temperament}`}
                 </Typography>
                 <Typography variant="body2">
-                  {`Previously written notes: ${notesRef}`}
+                  {`Previously written notes: ${prevNotes}`}
                 </Typography>
               </CardContent>
               <div className='bg-[#EAE2B7]'>
                 <label className='mx-2' htmlFor='notes'>Notes:</label>
+              </div>
+              <div className="pr-7 bg-[#EAE2B7]">
                 <Input
                   {...register('notes')}
                   name='notes'
-                  // value={ favNotes }
+                  value={ favNotes }
                   onChange={handleFavNotesChange}
                   sx={{mx: 2}}
                   placeholder='Add notes about this breed here if you would like to change what you wrote.'
@@ -133,11 +126,11 @@ const FavoritesTile = ({ favList }: { favList: FavoritesList}) => {
                   >
                     Edit Favorite
                   </ConButton>
-                  {/* <ConButton onClick={deleteFav} type='button' id='favorite-delete'
+                  <ConButton onClick={deleteFav} type='button' id='favorite-delete'
                     className='flex justify-start bg-slate-300 p-2 rounded hover:gl-slate-800 text-white'
                   >
                     Delete Favorite
-                  </ConButton> */}
+                  </ConButton>
                 </CardActions>
               </div>
             </Card>

@@ -1,32 +1,11 @@
-import { Key, useState, useEffect } from "react"
+import React, { useState, useEffect } from "react"
 import FavoritesTile from "../components/FavoritesTile"
 import { server_calls } from "../api/server";
-import { useGetFavData } from "../custom-hooks/FetchFavData";
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
+import { FavoriteType } from "../types/favorites";
 
-interface favListProps {
-  breedNotes_Id: string;
-  notes: string;
-  id: string;
-  image_id: string;
-}
-
-// interface FavDataProps {
-//   url: string;
-//   breeds: [{
-//     name: string;
-//     breed_group: string;
-//     life_span: string;
-//     height: {metric: string};
-//     weight: {metric: string};
-//     temperament: string;
-//     reference_image_id: string;
-//   }]
-// }
-
-const Favorites = () => {
-  const [favList, setFavList] = useState<favListProps[]>([])
-  // const { dogFavData, setFavData } = useGetFavData()
+const Favorites: React.FC = () => {
+  const [favList, setFavList] = useState<FavoriteType[]>([])
   const { user } = useAuth0()
 
   const getFavList = async () => {
@@ -46,13 +25,13 @@ const Favorites = () => {
             { ...favList}
           /> */}
         {/* get request from get_notes */}
-          { favList.map((item: { breedNotes_Id: string; notes: string; image_id: string }, index: Key | null | undefined) => (
+          { favList.map((item, index) => (
             <FavoritesTile 
               key={index} 
-              // breedNotes_Id={item.breedNotes_Id} 
-              // notes={item.notes}
-              // user_id={item.user_id}
-              // image_id={item.image_id}
+              breedNotes_Id={item.breedNotes_Id} 
+              notes={item.notes}
+              user_id={item.user_id}
+              image_id={item.image_id}
             />
           ))}
         </div>      
