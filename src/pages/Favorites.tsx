@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import FavoritesTile from "../components/FavoritesTile"
 import { server_calls } from "../api/server";
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
-import { FavoriteType } from "../types/favorites";
+import { FavoriteType } from "../types/favoritesType";
 
 const Favorites: React.FC = () => {
   const [favList, setFavList] = useState<FavoriteType[]>([])

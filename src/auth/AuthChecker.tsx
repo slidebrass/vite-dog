@@ -8,7 +8,7 @@ interface Props {
 
 const AuthChecker = ({ children }: Props) => {
     const navigate = useNavigate();
-    const { user, isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
+    const {isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
 
     useEffect(() => {
         if (!isLoading && !isAuthenticated) {

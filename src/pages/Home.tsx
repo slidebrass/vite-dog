@@ -1,16 +1,16 @@
-// import Background
+import Background from '../assets/images/collage.jpeg';
 
 
 function Home() {
   return (
     <div
-      // style={{ backgroundImage: `url(${ Background })`}}
-      className= 'flex justify-center mx-auto bg-cover bg-fixed'
+      style={{ backgroundImage: `url(${ Background })`}}
+      className= 'flex justify-center mx-auto mt-bg-center bg-cover bg-local h-screen'
     >
-      <div className="flex flex-row h-screen">
-        <h3 className="p-5 bg-white bg-opacity-50 text-black rounded">
+      <div className="flex place-items-center h-screen">
+        <h2 className="p-5 bg-white bg-opacity-75 text-black rounded">
           Learn about dog breeds!
-        </h3>
+        </h2>
       </div>
       <div>
         {/* link to search/results page */}

@@ -24,7 +24,7 @@ function Navbar() {
   }
 
   return (
-    <nav className='flex items-center justify-between flex-wrap bg-[#EAE2B7] p-6'>
+    <nav className='flex items-center justify-between flex-wrap bg-[#EAE2B7] p-6 sticky top-0 w-full z-10'>
       <div className='flex items-center flex-shrink-0 text-[#003049] hover:text-[#D62828] mr-6'>
         <Link to='/' className='font-semibold text-xl tracking-tight'>
           Dog Breeds

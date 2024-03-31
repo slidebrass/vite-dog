@@ -1,9 +1,8 @@
 // Need to create a reusable tile with fields populated by the 3rd party API. 
 // Will include image, breed name, and description of breed.
-import { Card, CardActions, CardContent, CardMedia, Alert, Typography } from '@mui/material';
+import { Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
 import ConButton from './ConButton';
-import Input from './Input';
-import React, { ChangeEventHandler, useState } from 'react';
+import { ChangeEventHandler, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { server_calls } from '../api/server';
 import { useAuth0 } from '@auth0/auth0-react';
@@ -125,7 +124,7 @@ const ResultsTile = ({ breedDetails }: { breedDetails: BreedDetailsProps}) => {
               </CardActions>
             </Card>
           </form>
-        ) : null
+        ) : (null)
       }
     </div>
   )
