@@ -3,7 +3,6 @@
 
 import { Card, CardActions, CardContent, CardMedia, Typography } from "@mui/material"
 import ConButton from "./ConButton"
-import Input from "./Input"
 import { FavoriteType } from "../types/favorites"
 
 import React, { useState, useEffect, ChangeEventHandler } from "react"
