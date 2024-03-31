@@ -133,7 +133,3 @@ const MultipleSelect:React.FC<Props> = ({ setBreedDetails }) => {
 };
 
 export default MultipleSelect;
-function setBreedDetails(details: any) {
-  throw new Error('Function not implemented.');
-}
-

@@ -1,6 +1,6 @@
 // Need to create a reusable tile with fields populated by the 3rd party API. 
 // Will include image, breed name, and description of breed.
-import { Card, CardActions, CardContent, CardMedia, SelectChangeEvent, Typography } from '@mui/material';
+import { Card, CardActions, CardContent, CardMedia, Alert, Typography } from '@mui/material';
 import ConButton from './ConButton';
 import Input from './Input';
 import React, { ChangeEventHandler, useState } from 'react';
@@ -43,7 +43,6 @@ const ResultsTile = ({ breedDetails }: { breedDetails: BreedDetailsProps}) => {
   }
   console.log(breedDetails)
 
-// TODO: setId from user.id
   const onSubmitFavorite = (data: any, event: any) => {
     if (event) event.preventDefault()
     console.log('submitting')
@@ -52,10 +51,11 @@ const ResultsTile = ({ breedDetails }: { breedDetails: BreedDetailsProps}) => {
     console.log(breedDetails.breeds[0].reference_image_id)
     console.log(user?.sub)
     server_calls.create_note({
-      'notes': data['notes'],
+      'notes': notes,
       'image_id': breedDetails.breeds[0].reference_image_id,
       'user_id': user?.sub
     })
+    setNotes('')
     
     
 // notes, id, image_id, breedNotes_Id
@@ -97,14 +97,16 @@ const ResultsTile = ({ breedDetails }: { breedDetails: BreedDetailsProps}) => {
                 </Typography>
               </CardContent>
               <div className='bg-[#EAE2B7]'>
-                <label className='mx-2' htmlFor='notes'>Notes:</label>
+                <label className='mx-2' htmlFor='notesele'>Notes:</label>
               </div>
-              <div className='pr-7 bg-[#EAE2B7]'>
-                <Input {...register('notes')} 
-                  name='notes' 
+              <div className='flex justify-center bg-[#EAE2B7]'>
+                <textarea 
+                  className="box-border w-9/12 rounded-md border-2 border-[#D62828] text-black p-2"
+                  {...register('notes')} 
+                  name='note' 
                   value={ notes }
+                  id='notesele'
                   onChange={handleNoteChange}
-                  sx={{mx: 2}} 
                   placeholder='Add notes about this breed here if you would like to add it to your favorites.' 
                 />
               </div>
@@ -117,7 +119,6 @@ const ResultsTile = ({ breedDetails }: { breedDetails: BreedDetailsProps}) => {
                   type='submit' 
                   id='favorite-button'
                   disabled={notes.length === 0}
-                  
                 >
                   Add Favorite
                 </ConButton>

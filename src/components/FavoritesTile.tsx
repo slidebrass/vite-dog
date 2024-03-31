@@ -31,7 +31,7 @@ const FavoritesTile: React.FC<FavoriteType> = ( favList ) => {
   const { register, handleSubmit } = useForm({})
 
   // the actual notes the user is typing in
-  const [favNotes, setFavNotes] = useState<string>('')
+  const [favNotes, setFavNotes] = useState('')
   // notes loaded onto the card for display
   const [prevNotes, setPrevNotes] = useState(favList.notes)
 
@@ -55,7 +55,7 @@ const FavoritesTile: React.FC<FavoriteType> = ( favList ) => {
   // TODO: change state of favList; currently deletes breed but does not remove tile until page refreshes
   const deleteFav = () => {
     server_calls.delete_note(favList.breedNotes_Id)
-    
+    setFavData(undefined)
   }
 
   const onSubmitUpdate = (data: any, event: any) => {
@@ -66,7 +66,7 @@ const FavoritesTile: React.FC<FavoriteType> = ( favList ) => {
   }
 
   return (
-    <div className="bg-gray-200">
+    <div className="bg-gray-300">
       {favData
         ? (
           <form 
@@ -105,17 +105,20 @@ const FavoritesTile: React.FC<FavoriteType> = ( favList ) => {
                 </Typography>
               </CardContent>
               <div className='bg-[#EAE2B7]'>
-                <label className='mx-2' htmlFor='notes'>Notes:</label>
+                <label className='mx-2' htmlFor='notesele'>Notes:</label>
               </div>
-              <div className="pr-7 bg-[#EAE2B7]">
-                <Input
-                  {...register('notes')}
-                  name='notes'
-                  value={ favNotes }
-                  onChange={handleFavNotesChange}
-                  sx={{mx: 2}}
-                  placeholder='Add notes about this breed here if you would like to change what you wrote.'
-                />
+              <div className="bg-[#EAE2B7]">
+                <div className="flex justify-center w-250">
+                  <textarea
+                    className="box-border w-9/12 rounded-md border-2 border-[#D62828] text-black p-2"
+                    {...register('notes')}
+                    name='note'
+                    id="notesele"
+                    value={ favNotes }
+                    onChange={handleFavNotesChange}
+                    placeholder='Add notes about this breed here if you would like to change what you wrote.'
+                  />
+                </div>
               </div>
               <div className='content-between bg-[#EAE2B7]'>
                 <CardActions className='flex justify-end mr-5'>
@@ -134,54 +137,6 @@ const FavoritesTile: React.FC<FavoriteType> = ( favList ) => {
                 </CardActions>
               </div>
             </Card>
-            {/* <Card className='items-center mx-auto pt-2 ' sx={{ maxWidth: 500 }}>
-          <CardMedia className='bg-slate-200'
-            component='img'
-            image='https://cdn2.thedogapi.com/images/BFRYBufpm.jpg'
-          />
-          <CardContent className='bg-slate-200'>
-            <Typography gutterBottom variant='h5' component='div'>
-              {`Breed Name: Akita`}
-            </Typography>
-          </CardContent>
-          <CardContent className='bg-slate-300'>
-            <Typography variant='body2' color='text.secondary'>
-              {`Breed Group: Working`}
-            </Typography>
-            <Typography variant='body2' color='text.secondary'>
-              {`Life Span: 10 - 14 years`}
-            </Typography>
-            <Typography variant='body2' color='text.secondary'>
-              {`Weight: 29 - 52 Kg`}
-            </Typography>
-            <Typography variant='body2' color='text.secondary'>
-              {`Height: 61 - 71 cm`}
-            </Typography>
-            <Typography variant='body2' color='text.secondary'>
-              {`Temperament: Docile, Alert, Responsive, Dignified, Composed, Friendly, Receptive, Faithful, Courageous`}
-            </Typography>
-          </CardContent>
-          <div className='bg-slate-200'>
-            <label className='px-2' htmlFor='notes'>Notes</label>
-            <Input {...register('note_input')} name='note_input' onChange={ handleFavNotesChange }
-              placeholder='Add notes about this breed here if you would like to add it to your favorites.' 
-            />
-          </div>
-          <div className='content-between bg-slate-200'>
-            <CardActions className='flex justify-end mr-5'>
-              <ConButton type='submit' id='favorite-update'
-                className='flex justify-start bg-slate-300 p-2 rounded hover:gl-slate-800 text-white'
-              >
-                Edit Favorite
-              </ConButton>
-              <ConButton onClick={deleteFav} type='button' id='favorite-delete'
-                className='flex justify-start bg-slate-300 p-2 rounded hover:gl-slate-800 text-white'
-              >
-                Delete Favorite
-              </ConButton>
-            </CardActions>
-          </div>
-        </Card> */}
           </form>
         ) : null
       }

@@ -200,18 +200,20 @@ export const server_calls = {
 
   // notes routes
   get_notes: async ( user_id: string|undefined ) => {
+    
+    const response = await fetch(`${endpoint}/api/notes/all/${user_id}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-access-token': `Bearer ${token}`
+        }
+      }
+    )
+
     if ( user_id == undefined ) {
       throw new Error('User is unauthenticated.')
     }
-
-    const response = await fetch(`${endpoint}/api/notes/all/${user_id}`,
-    {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-access-token': `Bearer ${token}`
-      }
-    })
 
     if (!response.ok) {
       throw new Error('Failed to fetch data from the server')
