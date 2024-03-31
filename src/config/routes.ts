@@ -1,10 +1,11 @@
 import Home from '../pages/Home';
 import Results from '../pages/Results';
 import Favorites from '../pages/Favorites';
+import { FC } from 'react';
 
 interface RouteType {
     path: string,
-    component: () => JSX.Element,
+    component: FC<{}> | (() => JSX.Element),
     name: string
     protected: boolean
 }

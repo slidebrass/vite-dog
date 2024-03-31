@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import { dog_server_calls } from "../api/dog_server";
 import { TheCatAPI } from "@thatapicompany/thecatapi";
-import { api_key } from "../api/dog_server.ts";
-import 
+import { api_key } from "../api/dog_server.ts"; 
 
 export const useTheCatApi = new TheCatAPI(`${api_key}`, {
     host: "https://api.thedogapi.com/v1",
