@@ -259,6 +259,7 @@ export const server_calls = {
   },
 
   update_note: async (breedNotes_Id: string, data:any = {}) => {
+    console.log(breedNotes_Id)
     const response = await fetch(`${endpoint}/api/notes/${breedNotes_Id}`,
     {
       method: 'PUT',
