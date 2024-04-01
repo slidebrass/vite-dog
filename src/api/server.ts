@@ -1,5 +1,5 @@
 const token = '9bcd1983-9357-48cc-8a15-b7864cddfd4c'
-const endpoint = 'http://127.0.0.1:5000'
+const endpoint = 'https://flask-dog.onrender.com'
 
 export const server_calls = {
   // breed_info routes
