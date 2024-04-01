@@ -22,4 +22,5 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-.auth0.config.ts
+
+src/config/auth0.config.ts
