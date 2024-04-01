@@ -59,6 +59,7 @@ const FavoritesTile: React.FC<FavoriteType> = ( favList ) => {
 
   const onSubmitUpdate = (data: any, event: any) => {
     if (event) event.preventDefault()
+    console.log(favList.breedNotes_Id)
     server_calls.update_note(favList.breedNotes_Id, data['notes'])
     setPrevNotes(favNotes)
     setFavNotes('')
