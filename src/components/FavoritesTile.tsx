@@ -60,7 +60,8 @@ const FavoritesTile: React.FC<FavoriteType> = ( favList ) => {
   const onSubmitUpdate = (data: any, event: any) => {
     if (event) event.preventDefault()
     console.log(favList.breedNotes_Id)
-    server_calls.update_note(favList.breedNotes_Id, data['notes'])
+    console.log(data)
+    server_calls.update_note(favList.breedNotes_Id, data)
     setPrevNotes(favNotes)
     setFavNotes('')
   }
@@ -112,7 +113,7 @@ const FavoritesTile: React.FC<FavoriteType> = ( favList ) => {
                   <textarea
                     className="box-border w-9/12 rounded-md border-2 border-[#D62828] text-black p-2"
                     {...register('notes')}
-                    name='note'
+                    name='notes'
                     id="notesele"
                     value={ favNotes }
                     onChange={handleFavNotesChange}
