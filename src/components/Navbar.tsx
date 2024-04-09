@@ -15,9 +15,9 @@ function Navbar() {
     loginWithRedirect();
   }
 
-  const dropDown = () => {
-    setIsVisible(!isVisible)
-  }
+  // const dropDown = () => {
+  //   setIsVisible(!isVisible)
+  // }
 
   const clicked = () => {
     setIsVisible(false)
@@ -30,23 +30,23 @@ function Navbar() {
           Dog Breeds
         </Link>
       </div>
-      <div className='block'>
+      {/* <div className='block'>
         <button onClick={dropDown} className='flex items-center px-3 py-2 
           text-[#003049] border rounded border-[#003049] hover:text-[#D62828] 
           hover:border-[#D62828]'
         >
           <i className='fas fa-bars'></i>
         </button>
-      </div>
-      {isVisible ? (
+      </div> */}
+      {/* {isVisible ? ( */}
         <div className='w-full block flex-grow items-center mt-2'>
           <div className="text-sm lg:flex-grow border-[#003049] border-2 rounded-md">
             <button className='p-3 m-5 bg-[#FCBF49] hover:bg-[#F77F00] justify-center border-[#D62828] border rounded-md'>
               <div>
                 <Link to='' onClick={clicked} className='flex place-itmes-center mt-4 
-                lg:inline-block lg:mt-0 text-[#003049] hover:text-[#EAE2B7]'
+                lg:inline-block lg:mt-0 text-[#003049] hover:text-white'
                 >
-                  Home
+                  <i className='fa-solid fa-house'></i> Home
                 </Link>
               </div>
             </button>
@@ -55,8 +55,8 @@ function Navbar() {
               !isAuthenticated ?
                 <button className='p-3 m-5 bg-[#FCBF49] hover:bg-[#F77F00] justify-center border-[#D62828] border rounded-md'>
                   <div>
-                    <Link to='/' onClick={signInOnClick} className='flex place-items-center mt-4 lg:inline-block lg:mt-0 text-[#003049] hover:text-[#EAE2B7]'>
-                      Login
+                    <Link to='/' onClick={signInOnClick} className='flex place-items-center mt-4 lg:inline-block lg:mt-0 text-[#003049] hover:text-white'>
+                      <i className='fa-solid fa-right-to-bracket'></i> Login
                     </Link>
                   </div>
                 </button>
@@ -65,25 +65,34 @@ function Navbar() {
                   <button className='p-3 m-5 bg-[#FCBF49] hover:bg-[#F77F00] justify-center border-[#D62828] border rounded-md'>
                     <div>
                       <Link to='/search' onClick={clicked} className='flex place-itmes-center mt-4 
-                        lg:inline-block lg:mt-0 text-[#003049] hover:text-[#EAE2B7]' 
+                        lg:inline-block lg:mt-0 text-[#003049] hover:text-white' 
                       >
-                        Search
+                        <i className='fa-solid fa-magnifying-glass'></i> Search
+                      </Link>
+                    </div>
+                  </button>
+                  <button className='p-3 m-5 bg-[#FCBF49] hover:bg-[#F77F00] justify-center border-[#D62828] border rounded-md'>
+                    <div>
+                      <Link to='/twsearch' onClick={clicked} className='flex place-itmes-center mt-4 
+                        lg:inline-block lg:mt-0 text-[#003049] hover:text-white' 
+                      >
+                        <i className='fa-solid fa-magnifying-glass'></i> TWSearch
                       </Link>
                     </div>
                   </button>
                   <button className='p-3 m-5 bg-[#FCBF49] hover:bg-[#F77F00] justify-center border-[#D62828] border rounded-md'>
                     <div>
                       <Link to='/favorites' onClick={clicked} className='flex place-itmes-center mt-4 
-                        lg:inline-block lg:mt-0 text-[#003049] hover:text-[#EAE2B7]'
+                        lg:inline-block lg:mt-0 text-[#003049] hover:text-white'
                       >
-                        Favorites
+                        <i className='fa-solid fa-heart'></i> Favorites
                       </Link>
                     </div>
                   </button>
                   <button className='p-3 m-5 bg-[#FCBF49] hover:bg-[#F77F00] justify-center border-[#D62828] border rounded-md'>
                       <div>
-                          <Link to='/' onClick={signOutOnClick} className='flex place-items-center mt-4 lg:inline-block lg:mt-0 text-[#003049] hover:text-[#EAE2B7]'>
-                              Logout
+                          <Link to='/' onClick={signOutOnClick} className='flex place-items-center mt-4 lg:inline-block lg:mt-0 text-[#003049] hover:text-white'>
+                            <i className='fa-solid fa-door-open'></i>  Logout
                           </Link>
                       </div>
                   </button>
@@ -91,9 +100,9 @@ function Navbar() {
             }
           </div>
         </div>
-      ) : (
+      {/* ) : (
         <></>
-      )}
+      )} */}
     </nav>
   )
 }

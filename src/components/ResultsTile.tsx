@@ -2,24 +2,26 @@
 // Will include image, breed name, and description of breed.
 import { Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
 import ConButton from './ConButton';
+import { BreedDetailsProps } from '../types/breedDetailsProps';
+
 import { ChangeEventHandler, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { server_calls } from '../api/server';
 import { useAuth0 } from '@auth0/auth0-react';
 
 
-interface BreedDetailsProps {
-  url: string;
-  breeds: [{
-    name: string;
-    breed_group: string;
-    life_span: string;
-    height: {metric: string};
-    weight: {metric: string};
-    temperament: string;
-    reference_image_id: string;
-  }]
-}
+// interface BreedDetailsProps {
+//   url: string;
+//   breeds: [{
+//     name: string;
+//     breed_group: string;
+//     life_span: string;
+//     height: {metric: string};
+//     weight: {metric: string};
+//     temperament: string;
+//     reference_image_id: string;
+//   }]
+// }
 
 // interface NoteProps {
 //   name: string;
@@ -34,7 +36,6 @@ const ResultsTile = ({ breedDetails }: { breedDetails: BreedDetailsProps}) => {
 
   // setting up state for the notes users can write if they wish to save a breed as a favorite
   const [notes, setNotes] = useState<string>('')
-  // const [id, setId] = useState<string>('')
 
   const handleNoteChange: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> = (event) => {
     setNotes(event.target.value)
@@ -61,13 +62,13 @@ const ResultsTile = ({ breedDetails }: { breedDetails: BreedDetailsProps}) => {
   }
 
   return (
-    <div className='bg-gray-300'>
+    <div>
       {breedDetails
         ? (
           <form onSubmit={handleSubmit(onSubmitFavorite)}
-            className='py-5'
+            className='flex flex-direction-row py-5 justify-center'
           >
-            <Card className='items-center mx-auto' sx={{ maxWidth: 750 }}>
+            <Card className='items-center mx-auto border-4 border-[#8E8B7C] border-solid rounded-md shadow-[0_35px_60px_-15px_rbga(142,139,124,0.3)]' sx={{ maxWidth: 750 }}>
               <CardMedia
                 className='bg-[#EFF2C0]'
                 component='img'
