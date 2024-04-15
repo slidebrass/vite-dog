@@ -75,15 +75,15 @@ const FavoritesTile: React.FC<FavoriteType> = ( favList ) => {
             onSubmit={handleSubmit(onSubmitUpdate)}
             className="flex flex-direction-row justify-center py-5 bg-[#EFF2C0]"
           >
-            <article className='rounded-xl border-2 border-gray-700 bg-[#EAE2B7] p-4 w-3/4'>
-              <div className='flex items-center gap-4'>
+            <article className='rounded-xl border-2 border-gray-700 bg-[#EAE2B7] p-4 object-contain'>
+              <div className='flex justify-around space-x-2'>
                 <img 
                   alt='picture of the chosen breed'
                   src={favData.url}
                   // TODO: fix flex of image
-                  className='flex max-w-lg rounded-full object-contain shadow-xl'
+                  className='flex-2 max-w-md rounded-full object-contain shadow-xl aspect-auto'
                 />
-                <div className='flex flex-col bg-[#FCBF49] border-[#D62828] 
+                <div className='flex flex-col m-auto justify-center bg-[#FCBF49] border-[#D62828] 
                   border-2 rounded-md 
                   '>
                   <h3 className='flex text-lg font-medium justify-center text-[#D62828]'>
@@ -92,7 +92,7 @@ const FavoritesTile: React.FC<FavoriteType> = ( favList ) => {
                   <h3 className='flex text-lg font-medium justify-center text-center text-[#D62828]'>
                     {favData.breeds[0].name}
                   </h3>
-                  <div>
+                  <div flex-1>
                     <ul className='m-1 flex flex-wrap justify-center'>
                       <li className='p-1 leading-none'>
                         <a href='#' className='text-xs font-medium text-[#003049] text-center'>
@@ -134,6 +134,11 @@ const FavoritesTile: React.FC<FavoriteType> = ( favList ) => {
                 <li>
                   <h5>
                     {`Temperament: ${favData.breeds[0].temperament}`}
+                  </h5>
+                </li>
+                <li>
+                  <h5>
+                    {`Previously written notes: ${prevNotes}`}
                   </h5>
                 </li>
               </ul>
