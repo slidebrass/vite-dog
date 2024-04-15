@@ -41,26 +41,31 @@ const TWResultsTile = ({ breedDetails }: { breedDetails: BreedDetailsProps }) =>
       {breedDetails
         ? (
           <form onSubmit={handleSubmit(onSubmitFavorite)}
-            className='flex flex-direction-row py-5 justify-center'
+            className='flex flex-direction-row py-5 justify-center bg-[#EFF2C0]'
           >
-            <article className='rounded-xl border border-gray-700 bg-[#EFF2C0] p-4 w-3/4'>
-              <div className='flex items-center gap-4'>
+            <article className='rounded-xl border-2 border-gray-700 bg-[#EAE2B7] p-4 object-contain'>
+              <div className='flex justify-around space-x-2'>
                 <img 
                   alt='picture of the chosen breed'
                   src={breedDetails.url}
                   // TODO: fix flex of image
-                  className='flex max-w-lg rounded-full object-contain'
+                  className='flex-2 max-w-md rounded-full object-contain shadow-xl
+                          aspect-auto'
                 />
 
-                <div>
-                  <h3 className='text-lg font-medium text-[#D62828]'>
-                    {`Breed Name: ${breedDetails.breeds[0].name}`}
+                <div className='flex flex-col m-auto justify-center bg-[#FCBF49] border-[#D62828] 
+                  border-2 rounded-md 
+                  '>
+                  <h3 className='flex text-lg font-medium justify-center text-[#D62828]'>
+                    Breed Name:
                   </h3>
-
-                  <div className='flow-root'>
-                    <ul className='m-1 flex flex-wrap'>
+                  <h3 className='flex text-lg font-medium justify-center text-center text-[#D62828]'>
+                    {breedDetails.breeds[0].name}
+                  </h3>
+                  <div flex-1>
+                    <ul className='m-1 flex flex-wrap justify-center'>
                       <li className='p-1 leading-none'>
-                        <a href='#' className='text-xs font-medium text-gray-700'>
+                        <a href='#' className='text-xs font-medium text-[#003049] text-center'>
                           Adoptable Pets for this Breed
                         </a>
                       </li>
@@ -68,34 +73,36 @@ const TWResultsTile = ({ breedDetails }: { breedDetails: BreedDetailsProps }) =>
                   </div>
                 </div>
               </div>
-              <ul className='mt-4 space-y-2'>
+              <ul className='mt-4 p-4 space-y-2 bg-[#FCBF49] border-[#D62828] 
+                text-[#003049] border-2 rounded-md'
+              >
                 <li>
-                  <h5 className='text-[#D62828]'>
+                  <h5>
                     {`Breed Name: ${breedDetails.breeds[0].name}`}
                   </h5>
                 </li>
                 <li>
-                  <h5 className='text-[#D62828]'>
+                  <h5>
                     {`Breed Group: ${breedDetails.breeds[0].breed_group}`}
                   </h5>
                 </li>
                 <li>
-                  <h5 className='text-[#D62828]'>
+                  <h5>
                     {`Life Span: ${breedDetails.breeds[0].life_span}`}
                   </h5>
                 </li>
                 <li>
-                  <h5 className='text-[#D62828]'>
-                    {`Weight: ${breedDetails.breeds[0].weight} Kg`}
+                  <h5>
+                    {`Weight: ${breedDetails.breeds[0].weight.metric} Kg`}
                   </h5>
                 </li>
                 <li>
-                  <h5 className='text-[#D62828]'>
-                    {`Height: ${breedDetails.breeds[0].height} cm`}
+                  <h5>
+                    {`Height: ${breedDetails.breeds[0].height.metric} cm`}
                   </h5>
                 </li>
                 <li>
-                  <h5 className='text-[#D62828]'>
+                  <h5>
                     {`Temperament: ${breedDetails.breeds[0].temperament}`}
                   </h5>
                 </li>

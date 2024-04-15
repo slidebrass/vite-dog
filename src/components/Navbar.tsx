@@ -24,7 +24,7 @@ function Navbar() {
   }
 
   return (
-    <nav className='flex items-center justify-between flex-wrap bg-[#EAE2B7] p-6 sticky top-0 w-full z-10'>
+    <nav className='flex flex-direction-row  bg-[#EAE2B7] px-6 py-4 sticky top-0 w-full z-10'>
       <div className='flex items-center flex-shrink-0 text-[#003049] hover:text-[#D62828] mr-6'>
         <Link to='/' className='font-semibold text-xl tracking-tight'>
           Dog Breeds
@@ -39,8 +39,9 @@ function Navbar() {
         </button>
       </div> */}
       {/* {isVisible ? ( */}
-        <div className='w-full block flex-grow items-center mt-2'>
-          <div className="text-sm lg:flex-grow border-[#003049] border-2 rounded-md">
+      
+        <div className='w-full flex-grow mt-2'>
+          <div className="flex text-sm lg:flex-grow border-[#003049] border-2 rounded-md justify-around">
             <button className='p-3 m-5 bg-[#FCBF49] hover:bg-[#F77F00] justify-center border-[#D62828] border rounded-md'>
               <div>
                 <Link to='' onClick={clicked} className='flex place-itmes-center mt-4 
