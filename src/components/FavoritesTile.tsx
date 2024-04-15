@@ -3,8 +3,6 @@
 import React, { useState, useEffect, ChangeEventHandler } from "react"
 import { useForm } from "react-hook-form"
 
-import { Card, CardActions, CardContent, CardMedia, Typography } from "@mui/material"
-import ConButton from "./ConButton"
 import { FavoriteType } from "../types/favoritesType"
 import { BreedDetailsProps } from "../types/breedDetailsProps"
 

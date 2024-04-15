@@ -24,8 +24,8 @@ function Navbar() {
   }
 
   return (
-    <nav className='flex flex-direction-row  bg-[#EAE2B7] px-6 py-4 sticky top-0 w-full z-10'>
-      <div className='flex items-center flex-shrink-0 text-[#003049] hover:text-[#D62828] mr-6'>
+    <nav className='flex flex-direction-row justify-around bg-[#EAE2B7] px-6 py-4 sticky top-0 w-full z-10'>
+      <div className='flex items-center justify-around flex-shrink-0 text-[#003049] hover:text-[#D62828] mr-2'>
         <Link to='/' className='font-semibold text-xl tracking-tight'>
           Dog Breeds
         </Link>
@@ -40,7 +40,7 @@ function Navbar() {
       </div> */}
       {/* {isVisible ? ( */}
       
-        <div className='w-full flex-grow mt-2'>
+        <div className='flex w-4/6 mt-2 '>
           <div className="flex text-sm lg:flex-grow border-[#003049] border-2 rounded-md justify-around">
             <button className='p-3 m-5 bg-[#FCBF49] hover:bg-[#F77F00] justify-center border-[#D62828] border rounded-md'>
               <div>
@@ -65,19 +65,10 @@ function Navbar() {
                 <>
                   <button className='p-3 m-5 bg-[#FCBF49] hover:bg-[#F77F00] justify-center border-[#D62828] border rounded-md'>
                     <div>
-                      <Link to='/search' onClick={clicked} className='flex place-itmes-center mt-4 
-                        lg:inline-block lg:mt-0 text-[#003049] hover:text-white' 
-                      >
-                        <i className='fa-solid fa-magnifying-glass'></i> Search
-                      </Link>
-                    </div>
-                  </button>
-                  <button className='p-3 m-5 bg-[#FCBF49] hover:bg-[#F77F00] justify-center border-[#D62828] border rounded-md'>
-                    <div>
                       <Link to='/twsearch' onClick={clicked} className='flex place-itmes-center mt-4 
                         lg:inline-block lg:mt-0 text-[#003049] hover:text-white' 
                       >
-                        <i className='fa-solid fa-magnifying-glass'></i> TWSearch
+                        <i className='fa-solid fa-magnifying-glass'></i> Search
                       </Link>
                     </div>
                   </button>

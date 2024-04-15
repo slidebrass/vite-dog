@@ -1,7 +1,6 @@
 import { FC } from 'react';
 
 import Home from '../pages/Home';
-import Results from '../pages/Results';
 import Favorites from '../pages/Favorites';
 import TWSearch from '../pages/TWSearch';
 
@@ -23,12 +22,6 @@ const routes: RouteType[] = [
         path: "/favorites",
         component: Favorites,
         name: "Favorites",
-        protected: true,
-    },
-    {
-        path: "/search",
-        component: Results,
-        name: "Search",
         protected: true,
     },
     {

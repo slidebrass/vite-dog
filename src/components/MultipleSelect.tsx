@@ -1,8 +1,7 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { CardActions, FormControl, InputLabel, MenuItem, Stack } from '@mui/material';
+import { FormControl, InputLabel, MenuItem } from '@mui/material';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 
-import ConButton from './ConButton';
 import { BreedDetailsProps } from '../types/breedDetailsProps';
 
 import { server_calls } from '../api/server';
@@ -10,19 +9,6 @@ import { dog_server_calls } from '../api/dog_server';
 
 // props being fed to breedDetails state so it can get back correct data and 
 // data types from TheDogAPI
-
-// interface BreedDetailsProps {
-//   url: string;
-//   breeds: [{
-//     name: string;
-//     breed_group: string;
-//     life_span: string;
-//     height: {metric: string};
-//     weight: {metric: string};
-//     temperament: string;
-//     reference_image_id: string;
-//   }]
-// }
 
 interface Props {
   setBreedDetails: Dispatch<SetStateAction<BreedDetailsProps | undefined>>
