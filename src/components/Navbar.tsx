@@ -1,10 +1,10 @@
-import { useState } from 'react';
+// import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
 
 function Navbar() {
 
-  const [isVisible, setIsVisible] = useState(false)
+  // const [isVisible, setIsVisible] = useState(false)
   const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
 
   const signOutOnClick = () => {
@@ -19,9 +19,9 @@ function Navbar() {
   //   setIsVisible(!isVisible)
   // }
 
-  const clicked = () => {
-    setIsVisible(false)
-  }
+  // const clicked = () => {
+  //   setIsVisible(false)
+  // }
 
   return (
     <nav className='flex flex-direction-row justify-around bg-[#EAE2B7] px-6 py-4 sticky top-0 w-full z-10'>
@@ -44,7 +44,7 @@ function Navbar() {
           <div className="flex text-sm lg:flex-grow border-[#003049] border-2 rounded-md justify-around">
             <button className='p-3 m-5 bg-[#FCBF49] hover:bg-[#F77F00] justify-center border-[#D62828] border rounded-md'>
               <div>
-                <Link to='' onClick={clicked} className='flex place-itmes-center mt-4 
+                <Link to='' className='flex place-itmes-center mt-4 
                 lg:inline-block lg:mt-0 text-[#003049] hover:text-white'
                 >
                   <i className='fa-solid fa-house'></i> Home
@@ -65,7 +65,7 @@ function Navbar() {
                 <>
                   <button className='p-3 m-5 bg-[#FCBF49] hover:bg-[#F77F00] justify-center border-[#D62828] border rounded-md'>
                     <div>
-                      <Link to='/twsearch' onClick={clicked} className='flex place-itmes-center mt-4 
+                      <Link to='/twsearch' className='flex place-itmes-center mt-4 
                         lg:inline-block lg:mt-0 text-[#003049] hover:text-white' 
                       >
                         <i className='fa-solid fa-magnifying-glass'></i> Search
@@ -74,7 +74,7 @@ function Navbar() {
                   </button>
                   <button className='p-3 m-5 bg-[#FCBF49] hover:bg-[#F77F00] justify-center border-[#D62828] border rounded-md'>
                     <div>
-                      <Link to='/favorites' onClick={clicked} className='flex place-itmes-center mt-4 
+                      <Link to='/favorites' className='flex place-itmes-center mt-4 
                         lg:inline-block lg:mt-0 text-[#003049] hover:text-white'
                       >
                         <i className='fa-solid fa-heart'></i> Favorites
