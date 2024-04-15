@@ -1,23 +1,10 @@
 import { useState } from "react";
 
-import ResultsTile from "../components/ResultsTile";
 import MultipleSelect from "../components/MultipleSelect";
 import { BreedDetailsProps } from "../types/breedDetailsProps";
+import TWResultsTile from "../components/TWResultsTile";
 
-// interface BreedDetailsProps {
-//   url: string;
-//   breeds: [{
-//     name: string;
-//     breed_group: string;
-//     life_span: string;
-//     height: {metric: string};
-//     weight: {metric: string};
-//     temperament: string;
-//     reference_image_id: string;
-//   }]
-// }
-
-const Results = () => {
+const TWSearch = () => {
   // props stored in state
   const [breedDetails, setBreedDetails] = useState<BreedDetailsProps>()
 
@@ -31,7 +18,7 @@ const Results = () => {
       {breedDetails
         ? (
           <div>
-            <ResultsTile 
+            <TWResultsTile 
               breedDetails = { breedDetails as BreedDetailsProps}
             />
           </div>
@@ -45,4 +32,4 @@ const Results = () => {
   )
 }
 
-export default Results
+export default TWSearch;
